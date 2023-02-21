@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/loverspickme/static/js/main.7278cfc0.js",
+    "main.js": "/loverspickme/static/js/main.6e26673d.js",
     "static/media/aboutLovers.png": "/loverspickme/static/media/aboutLovers.8a25830ac4c645bc131a.png",
     "static/media/main_img.png": "/loverspickme/static/media/main_img.3120f6ac301de411cee1.png",
     "static/media/title_img.jpeg": "/loverspickme/static/media/title_img.4e16b52ae01b460792fb.jpeg",
     "index.html": "/loverspickme/index.html",
-    "main.7278cfc0.js.map": "/loverspickme/static/js/main.7278cfc0.js.map"
+    "main.6e26673d.js.map": "/loverspickme/static/js/main.6e26673d.js.map"
   },
   "entrypoints": [
-    "static/js/main.7278cfc0.js"
+    "static/js/main.6e26673d.js"
   ]
 }
