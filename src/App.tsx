@@ -21,7 +21,7 @@ import OrderSuccess from 'pages/OrderSuccess/OrderSuccess';
 
 function App() {
   return (
-    <>
+    <>``
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
