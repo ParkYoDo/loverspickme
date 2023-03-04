@@ -4,8 +4,6 @@ import SideMenu from 'components/SideMenu/SideMenu';
 import SearchMenu from 'components/SearchProduct/SearchProduct';
 import ModifyUser from 'components/ModifyUser/ModifyUser';
 import logoImage from 'image/Navbar/logo_img.jpeg';
-import { BsHandbag, BsSearch } from 'react-icons/bs';
-import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { auth, db } from 'service/firebase_config';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -88,28 +86,23 @@ function Navbar() {
       {/* Navbar */}
       <S.NavWrapper>
         {/* hamburger bar */}
-        <S.NavIcon>
-          <RxHamburgerMenu onClick={sideMenuToggle} />
-        </S.NavIcon>
+        <S.NavIcon onClick={sideMenuToggle} />
 
         {/* main logo */}
-        <S.NavLogo>
-          <Link to="/">
-            <img src={logoImage} alt="Title_Image" style={{ width: '150px', height: '30px' }} />
-          </Link>
-        </S.NavLogo>
+
+        <S.RouterLink to="/">
+          <S.NavLogoImage src={logoImage} alt="Title_Image" />
+        </S.RouterLink>
 
         {/* main menu */}
         <S.NavMenus>
-          <S.CartBtn>
-            <Link to="/cart">
-              <BsHandbag />
-              {cart && cart?.length !== 0 && <S.CartLength>{cart?.length}</S.CartLength>}
-            </Link>
-          </S.CartBtn>
-          <S.SearchBtn>
-            <BsSearch onClick={searchMenuToggle} />
-          </S.SearchBtn>
+          <S.CartLink to="/cart">
+            <S.CartBtn />
+            {cart && cart?.length !== 0 && <S.CartLength>{cart?.length}</S.CartLength>}
+          </S.CartLink>
+          <S.SearchBtnDiv>
+            <S.SearchBtn onClick={searchMenuToggle} />
+          </S.SearchBtnDiv>
         </S.NavMenus>
       </S.NavWrapper>
     </>

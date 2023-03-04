@@ -75,17 +75,12 @@ function Login() {
     const accessToken = await getToken(authorizeCode!);
     const userData = await getUserData(accessToken);
 
-    console.log(authorizeCode);
-    console.log(accessToken);
-    console.log(userData);
-
-    console.log(process.env.REACT_APP_REDIRECT_URI);
     await signInWithEmailAndPassword(auth, userData.data.kakao_account.email, userData.data.id)
       .then(() => {
         navigate('/');
       })
       .catch(() => {
-        navigate('/board');
+        navigate('/kakaosignup');
         dispatch(
           setKakaoUserData({
             uid: userData.data.id,
@@ -111,10 +106,12 @@ function Login() {
         <S.LoginInput type="password" name="password" value={password} placeholder="비밀번호" onChange={onChange} />
 
         <S.SpaceBetweenDiv>
-          <S.Button onClick={moveSignUpPage}>회원가입</S.Button>
+          <S.Button type="button" onClick={moveSignUpPage}>
+            회원가입
+          </S.Button>
           <S.Button>아이디·비밀번호 찾기</S.Button>
         </S.SpaceBetweenDiv>
-        <S.LoginBtn>로그인</S.LoginBtn>
+        <S.LoginBtn type="submit">로그인</S.LoginBtn>
       </S.LoginForm>
 
       <S.KakaoLoginBtn onClick={onLoginWithKakao}>
