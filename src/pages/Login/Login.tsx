@@ -74,13 +74,18 @@ function Login() {
   const checkSignUpUser = useCallback(async () => {
     const accessToken = await getToken(authorizeCode!);
     const userData = await getUserData(accessToken);
+
+    console.log(authorizeCode);
+    console.log(accessToken);
     console.log(userData);
+
+    console.log(process.env.REACT_APP_REDIRECT_URI);
     await signInWithEmailAndPassword(auth, userData.data.kakao_account.email, userData.data.id)
       .then(() => {
         navigate('/');
       })
       .catch(() => {
-        navigate('/kakaosignup');
+        navigate('/board');
         dispatch(
           setKakaoUserData({
             uid: userData.data.id,
@@ -93,6 +98,7 @@ function Login() {
   }, [authorizeCode, navigate, dispatch]);
 
   useEffect(() => {
+    console.log(authorizeCode);
     authorizeCode && checkSignUpUser();
   }, [checkSignUpUser, authorizeCode]);
 
