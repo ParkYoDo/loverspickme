@@ -19,7 +19,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.user.cart);
 
-  // SideMenu
+  // SideMenu~
   const [sideMenu, setSideMenu] = useState(false);
   const sideMenuToggle = () => {
     setSideMenu(!sideMenu);
