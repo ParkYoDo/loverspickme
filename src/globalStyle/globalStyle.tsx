@@ -7,10 +7,6 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  html {
-    font-size: 10px;
-  }
-
   body {
     min-height: 100vh;
     background-color: #e4e3e8;

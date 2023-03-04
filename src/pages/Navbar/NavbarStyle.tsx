@@ -4,7 +4,7 @@ export const NavWrapper = styled.div`
   position: fixed;
   padding: 0 20px;
   width: 100%;
-  height: 5.6rem;
+  height: 60px;
   top: 0;
   left: 0;
   display: flex;
@@ -13,6 +13,17 @@ export const NavWrapper = styled.div`
   align-items: center;
   background-color: #cbebee;
   z-index: 2;
+
+  @media screen and (max-width: 768px) {
+    background-color: pink;
+    /* height: 100px; */
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    background-color: red;
+  }
+  @media screen and (min-width: 1024px) {
+    background-color: yellow;
+  }
 `;
 
 export const NavIcon = styled.button`

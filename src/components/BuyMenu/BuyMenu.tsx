@@ -199,7 +199,7 @@ function BuyMenu({ product }: Props) {
     const res = await getDoc(userRef);
     const wishItem: string[] = res.data()?.wish;
 
-    const findItem = wishItem.find((a) => a === product.id);
+    const findItem = wishItem?.find((a) => a === product.id);
 
     if (findItem) {
       await updateDoc(userRef, {
