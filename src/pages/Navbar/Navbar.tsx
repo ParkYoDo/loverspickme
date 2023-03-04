@@ -4,7 +4,6 @@ import SideMenu from 'components/SideMenu/SideMenu';
 import SearchMenu from 'components/SearchProduct/SearchProduct';
 import ModifyUser from 'components/ModifyUser/ModifyUser';
 import logoImage from 'image/Navbar/logo_img.jpeg';
-import { Link } from 'react-router-dom';
 import { auth, db } from 'service/firebase_config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
