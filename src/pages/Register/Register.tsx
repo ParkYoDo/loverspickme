@@ -1,7 +1,4 @@
-import React, { useState, useRef } from 'react';
-import { db, storage } from 'service/firebase_config';
-import { doc, setDoc, collection } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadString, uploadBytes } from 'firebase/storage';
+import React from 'react';
 
 function Register() {
   // const fileInput = useRef();

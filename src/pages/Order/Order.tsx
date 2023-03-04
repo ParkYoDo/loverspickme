@@ -8,7 +8,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { orderProduct } from 'store/user';
 import { addOrderInfo } from 'store/orderQueue';
 import { RootState } from 'store/store';
-import { optionInferface, receiverInfoInterface, orderQueueState } from 'type/interface';
+import { receiverInfoInterface } from 'type/interface';
 
 function Order() {
   const navigate = useNavigate();

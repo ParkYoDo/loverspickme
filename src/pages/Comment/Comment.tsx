@@ -46,7 +46,8 @@ function Comment() {
   );
 
   const uploadImage = async () => {
-    const imageRegex = /<img[^>]+src=[\"']?([^>\"']+)[\"']?[^>]*>/g;
+    // const imageRegex = /<img[^>]+src=[\"']?([^>\"']+)[\"']?[^>]*>/g;
+    const imageRegex = /<img[^>]+src=["']?([^>"']+)["']?[^>]*>/g;
     const imageSrc = imageRegex.exec(content);
     if (imageSrc) {
       const imageRef = doc(collection(db, 'comments'));

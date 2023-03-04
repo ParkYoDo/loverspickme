@@ -9,7 +9,7 @@ import { updateUser } from 'store/user';
 import { TfiClose } from 'react-icons/tfi';
 import DaumPostcode from 'react-daum-postcode';
 import { RootState } from 'store/store';
-import onClickOutSide from 'utils/onClickOutSide';
+// import onClickOutSide from 'utils/onClickOutSide';
 
 interface Props {
   setModifyUserModal: React.Dispatch<React.SetStateAction<boolean>>;
