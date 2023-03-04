@@ -74,6 +74,7 @@ function Login() {
   const checkSignUpUser = useCallback(async () => {
     const accessToken = await getToken(authorizeCode!);
     const userData = await getUserData(accessToken);
+    console.log(userData);
     await signInWithEmailAndPassword(auth, userData.data.kakao_account.email, userData.data.id)
       .then(() => {
         navigate('/');
