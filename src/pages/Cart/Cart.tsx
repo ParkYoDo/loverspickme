@@ -104,161 +104,163 @@ function Cart() {
   return (
     <>
       {user.cart && user.cart[0] ? (
-        <>
-          <S.CheckBoxWrapper>
-            <S.CheckBoxDiv>
-              <S.CheckBox
-                type="checkbox"
-                id="checkbox"
-                checked={checkList.length === 0 ? false : checkList.length === user.cart.length ? true : false}
-                onChange={onCheckAll}
-              />
-              <S.CheckBoxLabel htmlFor="checkbox">전체선택</S.CheckBoxLabel>
-            </S.CheckBoxDiv>
-            <S.CheckBoxDeleteBtn onClick={DeleteSelectProduct}>선택상품 삭제</S.CheckBoxDeleteBtn>
-          </S.CheckBoxWrapper>
-
-          {user.cart.map((cart) => {
-            const product = totalProducts.find((a) => a.id === cart.item);
-            const itemInCheckList = checkList.includes(cart.item) ? true : 0;
-
-            totalPrice += product?.option![0]
-              ? itemInCheckList &&
-                (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                  return acc + cur.count;
-                }, 0) * product?.price!
-              : itemInCheckList && product?.price! * (cart.count as number);
-
-            totalCount += product?.option![0]
-              ? itemInCheckList &&
-                (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                  return acc + cur.count;
-                }, 0)
-              : itemInCheckList && (cart.count as number);
-
-            return (
-              <S.CartWrapper key={cart.item}>
-                {optionChangeModal && (
-                  <OptionChangeModal
-                    userId={user.uid!}
-                    cart={user.cart!}
-                    selectItem={selectItem}
-                    totalProducts={totalProducts}
-                    setOptionChangeModal={setOptionChangeModal}
-                  />
-                )}
+        <S.LayOutWrapper>
+          <S.LayoutLeftDiv>
+            <S.CheckBoxWrapper>
+              <S.CheckBoxDiv>
                 <S.CheckBox
                   type="checkbox"
-                  name={cart.item}
-                  checked={checkList.includes(cart.item) ? true : false}
-                  onChange={onCheckElement}
+                  id="checkbox"
+                  checked={checkList.length === 0 ? false : checkList.length === user.cart.length ? true : false}
+                  onChange={onCheckAll}
                 />
+                <S.CheckBoxLabel htmlFor="checkbox">전체선택</S.CheckBoxLabel>
+              </S.CheckBoxDiv>
+              <S.CheckBoxDeleteBtn onClick={DeleteSelectProduct}>선택상품 삭제</S.CheckBoxDeleteBtn>
+            </S.CheckBoxWrapper>
 
-                <S.DeleteBtn>
-                  <TfiClose data-id={cart.item} onClick={DeleteProduct} />
-                </S.DeleteBtn>
+            {user.cart.map((cart) => {
+              const product = totalProducts.find((a) => a.id === cart.item);
+              const itemInCheckList = checkList.includes(cart.item) ? true : 0;
 
-                <S.CartProductWrapper>
-                  <S.CartProductDiv data-id={product?.id} onClick={moveProductPage}>
-                    <S.CartProductImage
-                      src={product?.image}
-                      alt="product_image"
-                      data-id={product?.id}
-                      onClick={moveProductPage}
+              totalPrice += product?.option![0]
+                ? itemInCheckList &&
+                  (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                    return acc + cur.count;
+                  }, 0) * product?.price!
+                : itemInCheckList && product?.price! * (cart.count as number);
+
+              totalCount += product?.option![0]
+                ? itemInCheckList &&
+                  (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                    return acc + cur.count;
+                  }, 0)
+                : itemInCheckList && (cart.count as number);
+
+              return (
+                <S.CartWrapper key={cart.item}>
+                  {optionChangeModal && (
+                    <OptionChangeModal
+                      userId={user.uid!}
+                      cart={user.cart!}
+                      selectItem={selectItem}
+                      totalProducts={totalProducts}
+                      setOptionChangeModal={setOptionChangeModal}
                     />
-                    <S.CartProductName data-id={product?.id} onClick={moveProductPage}>
-                      {product?.name}
-                    </S.CartProductName>
-                  </S.CartProductDiv>
-
-                  {product?.option![0] && (
-                    <S.ProductOptionDiv>
-                      {(cart.count as { item: number; count: number }[]).map((a, i) => (
-                        <S.ProductOption key={a.item}>
-                          {i + 1}. {product.option![a.item]} - {a.count}개
-                        </S.ProductOption>
-                      ))}
-                    </S.ProductOptionDiv>
                   )}
+                  <S.CheckBox
+                    type="checkbox"
+                    name={cart.item}
+                    checked={checkList.includes(cart.item) ? true : false}
+                    onChange={onCheckElement}
+                  />
 
-                  <S.OrderPriceTitleDiv>
-                    <S.OrderPriceTitle>주문금액</S.OrderPriceTitle>
-                    <S.OrderPriceTitle>
-                      {product?.option![0]
-                        ? `${(
-                            (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                              return acc + cur.count;
-                            }, 0) * product.price!
-                          )
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`
-                        : `${(product?.price! * (cart.count as number))
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`}
-                    </S.OrderPriceTitle>
-                  </S.OrderPriceTitleDiv>
-                  <S.OrderPriceDetailDiv>
-                    <S.OrderPriceDetailLineDiv>
-                      <S.OrderPriceDetailText>
+                  <S.DeleteBtn>
+                    <TfiClose data-id={cart.item} onClick={DeleteProduct} />
+                  </S.DeleteBtn>
+
+                  <S.CartProductWrapper>
+                    <S.CartProductDiv data-id={product?.id} onClick={moveProductPage}>
+                      <S.CartProductImage
+                        src={product?.image}
+                        alt="product_image"
+                        data-id={product?.id}
+                        onClick={moveProductPage}
+                      />
+                      <S.CartProductName data-id={product?.id} onClick={moveProductPage}>
+                        {product?.name}
+                      </S.CartProductName>
+                    </S.CartProductDiv>
+
+                    {product?.option![0] && (
+                      <S.ProductOptionDiv>
+                        {(cart.count as { item: number; count: number }[]).map((a, i) => (
+                          <S.ProductOption key={a.item}>
+                            {i + 1}. {product.option![a.item]} - {a.count}개
+                          </S.ProductOption>
+                        ))}
+                      </S.ProductOptionDiv>
+                    )}
+
+                    <S.OrderPriceTitleDiv>
+                      <S.OrderPriceTitle>주문금액</S.OrderPriceTitle>
+                      <S.OrderPriceTitle>
                         {product?.option![0]
-                          ? `상품금액(총 ${(cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                              return acc + cur.count;
-                            }, 0)}개)`
-                          : `상품금액(총 ${cart.count}개)`}
-                      </S.OrderPriceDetailText>
-                      <S.OrderPriceDetailText>
-                        {product?.option![0] ? (
-                          (
-                            (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                              return acc + cur.count;
-                            }, 0) * product.price!
-                          )
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'
-                        ) : (
-                          <>
-                            {(product?.price! * (cart.count as number))
+                          ? `${(
+                              (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                                return acc + cur.count;
+                              }, 0) * product.price!
+                            )
                               .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            원
-                          </>
-                        )}
-                      </S.OrderPriceDetailText>
-                    </S.OrderPriceDetailLineDiv>
-                    <S.OrderPriceDetailLineDiv>
-                      <S.OrderPriceDetailText>배송비</S.OrderPriceDetailText>
-                      <S.OrderPriceDetailText>
-                        {product?.option![0]
-                          ? (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                              return acc + cur.count;
-                            }, 0) *
-                              product.price! >=
-                            50000
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`
+                          : `${(product?.price! * (cart.count as number))
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`}
+                      </S.OrderPriceTitle>
+                    </S.OrderPriceTitleDiv>
+                    <S.OrderPriceDetailDiv>
+                      <S.OrderPriceDetailLineDiv>
+                        <S.OrderPriceDetailText>
+                          {product?.option![0]
+                            ? `상품금액(총 ${(cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                                return acc + cur.count;
+                              }, 0)}개)`
+                            : `상품금액(총 ${cart.count}개)`}
+                        </S.OrderPriceDetailText>
+                        <S.OrderPriceDetailText>
+                          {product?.option![0] ? (
+                            (
+                              (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                                return acc + cur.count;
+                              }, 0) * product.price!
+                            )
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'
+                          ) : (
+                            <>
+                              {(product?.price! * (cart.count as number))
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                              원
+                            </>
+                          )}
+                        </S.OrderPriceDetailText>
+                      </S.OrderPriceDetailLineDiv>
+                      <S.OrderPriceDetailLineDiv>
+                        <S.OrderPriceDetailText>배송비</S.OrderPriceDetailText>
+                        <S.OrderPriceDetailText>
+                          {product?.option![0]
+                            ? (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                                return acc + cur.count;
+                              }, 0) *
+                                product.price! >=
+                              50000
+                              ? '무료'
+                              : '3,000원'
+                            : product?.price! * (cart.count as number) >= 50000
                             ? '무료'
-                            : '3,000원'
-                          : product?.price! * (cart.count as number) >= 50000
-                          ? '무료'
-                          : '3,000원'}
-                      </S.OrderPriceDetailText>
-                    </S.OrderPriceDetailLineDiv>
-                    <S.OrderPriceDetailLineDiv>
-                      <S.OrderPriceDetailText>배송수단</S.OrderPriceDetailText>
-                      <S.OrderPriceDetailText>택배</S.OrderPriceDetailText>
-                    </S.OrderPriceDetailLineDiv>
-                  </S.OrderPriceDetailDiv>
+                            : '3,000원'}
+                        </S.OrderPriceDetailText>
+                      </S.OrderPriceDetailLineDiv>
+                      <S.OrderPriceDetailLineDiv>
+                        <S.OrderPriceDetailText>배송수단</S.OrderPriceDetailText>
+                        <S.OrderPriceDetailText>택배</S.OrderPriceDetailText>
+                      </S.OrderPriceDetailLineDiv>
+                    </S.OrderPriceDetailDiv>
 
-                  <S.CartBtnDiv>
-                    <S.ChangeOptionBtn data-id={cart.item} onClick={openOptionChangeModal}>
-                      옵션/수량 변경
-                    </S.ChangeOptionBtn>
-                    <S.PurchaseBtn data-id={cart.item} onClick={BuyProduct}>
-                      구매하기
-                    </S.PurchaseBtn>
-                  </S.CartBtnDiv>
-                </S.CartProductWrapper>
-              </S.CartWrapper>
-            );
-          })}
+                    <S.CartBtnDiv>
+                      <S.ChangeOptionBtn data-id={cart.item} onClick={openOptionChangeModal}>
+                        옵션/수량 변경
+                      </S.ChangeOptionBtn>
+                      <S.PurchaseBtn data-id={cart.item} onClick={BuyProduct}>
+                        구매하기
+                      </S.PurchaseBtn>
+                    </S.CartBtnDiv>
+                  </S.CartProductWrapper>
+                </S.CartWrapper>
+              );
+            })}
+          </S.LayoutLeftDiv>
           <S.CartBottomWrapper>
             <S.DetailPriceWrapper>
               <S.DetailPriceDiv>
@@ -289,7 +291,7 @@ function Cart() {
               <Link to="/shop">계속 쇼핑하기</Link>
             </S.MoveShopDiv>
           </S.CartBottomWrapper>
-        </>
+        </S.LayOutWrapper>
       ) : (
         <>
           <S.EmptyCartWrapper>

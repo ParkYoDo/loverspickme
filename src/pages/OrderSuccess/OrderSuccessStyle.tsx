@@ -1,11 +1,20 @@
 import styled from 'styled-components';
 
 export const OrderListWrapper = styled.div`
+  width: 460px;
+  margin: 0 auto;
+  margin-top: 70px;
   padding: 14px 18px;
   background-color: white;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 700px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 900px;
+  }
 `;
 
 export const OrderSuccessText = styled.div`

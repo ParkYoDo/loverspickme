@@ -27,8 +27,8 @@ export const CloseBtn = styled.button`
 
 export const ModifyUserForm = styled.form`
   position: absolute;
-  width: 70%;
-  height: 90%;
+  width: 400px;
+  height: 660px;
   background-color: white;
   padding: 20px;
   border-radius: 12px;
@@ -42,6 +42,13 @@ export const ModifyUserForm = styled.form`
   }
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 520px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 640px;
+  }
 `;
 
 export const ModifyFormTitle = styled.div`

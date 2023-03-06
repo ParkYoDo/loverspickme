@@ -1,5 +1,30 @@
 import styled from 'styled-components';
 
+export const LayOutWrapper = styled.div`
+  margin: 0 auto;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+`;
+
+export const LayoutLeftDiv = styled.div`
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 440px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 630px;
+  }
+`;
+
 export const CheckBoxWrapper = styled.div`
   width: 100%;
   background-color: white;
@@ -225,6 +250,17 @@ export const CartBottomWrapper = styled.div`
   background-color: white;
   margin-top: 10px;
   padding: 16px;
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    margin-top: 0;
+    width: 260px;
+    height: 220px;
+  }
+  @media screen and (min-width: 1024px) {
+    margin-top: 0;
+    width: 370px;
+    height: 220px;
+  }
 `;
 
 export const DetailPriceWrapper = styled.div`

@@ -15,10 +15,6 @@ export const NavWrapper = styled.div`
   align-items: center;
   background-color: #cbebee;
   z-index: 2;
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-  }
-  @media screen and (min-width: 1024px) {
-  }
 `;
 
 export const NavIcon = styled(RxHamburgerMenu)`
@@ -29,21 +25,22 @@ export const NavIcon = styled(RxHamburgerMenu)`
     color: #f3659b;
   }
   @media screen and (min-width: 1024px) {
-    /* display: none; */
+    font-size: 20px;
   }
 `;
 
-export const RouterLink = styled(Link)`
-  @media screen and (min-width: 1024px) {
-  }
-`;
+export const RouterLink = styled(Link)``;
 
 export const NavLogoImage = styled.img`
   width: 150px;
   height: 30px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 220px;
+    height: 32px;
+  }
   @media screen and (min-width: 1024px) {
-    width: 300px;
-    height: 36px;
+    width: 280px;
+    height: 34px;
   }
 `;
 
@@ -56,7 +53,7 @@ export const NavMenus = styled.div`
   font-size: 18px;
   width: 48px;
   @media screen and (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 20px;
   }
 `;
 

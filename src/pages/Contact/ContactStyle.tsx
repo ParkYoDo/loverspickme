@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 
 export const ContactWrapper = styled.div`
-  width: 80%;
+  width: 400px;
   margin: 0 auto;
   background-color: white;
   padding: 30px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 550px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 700px;
+  }
 `;
 
 export const ContactTitle = styled.div`

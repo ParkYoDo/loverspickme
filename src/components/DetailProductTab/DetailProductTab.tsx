@@ -23,13 +23,13 @@ function DetailProductTab({ product }: Props) {
     getNotice();
   }, []);
   return (
-    <>
+    <S.FullWidthImageDiv>
       {notice && notice.firstNotice.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
 
       {product && product.detailImage!.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
 
       {notice && notice.lastNotice.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
-    </>
+    </S.FullWidthImageDiv>
   );
 }
 

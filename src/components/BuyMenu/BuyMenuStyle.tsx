@@ -59,14 +59,14 @@ export const BuyMenuWrapper = styled.div<{ buyModal?: boolean }>`
   position: fixed;
   right: 0;
   bottom: 0;
-  height: ${(props) => !props.buyModal && '75px'};
   width: 100%;
   background-color: white;
-  padding: ${(props) => (props.buyModal ? '8px' : '16px')};
+  padding: ${(props) => (props.buyModal ? '8px' : '8px')};
   display: flex;
   flex-direction: ${(props) => (props.buyModal ? 'column' : 'row')};
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: space-between;
+  gap: 12px;
   text-align: center;
   border-top-left-radius: ${(props) => (props.buyModal ? '25px' : 'none')};
   border-top-right-radius: ${(props) => (props.buyModal ? '25px' : 'none')};
@@ -74,20 +74,9 @@ export const BuyMenuWrapper = styled.div<{ buyModal?: boolean }>`
   z-index: 1;
 `;
 
-export const CartBtn = styled.button`
-  border: 1px solid #c3c2c6;
-  border-radius: 50%;
+export const HeartBtnDiv = styled.div`
   width: 44px;
   height: 44px;
-  background-color: transparent;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:hover,
-  &:active {
-    border: 1px solid #ff95be;
-  }
 `;
 
 export const HeartBtn = styled.button`
@@ -103,30 +92,8 @@ export const HeartBtn = styled.button`
   justify-content: center;
 `;
 
-export const NaverPayBtn = styled.button<{ buyModal: boolean }>`
-  width: ${(props) => (props.buyModal ? '90%' : '40%')};
-  height: 44px;
-  background-color: #00c73a;
-  border: none;
-  border-radius: 25px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 15px;
-  font-weight: 400;
-  gap: 4px;
-`;
-
-export const NaverImg = styled.img`
-  width: 50px;
-  height: 20px;
-`;
-
-export const BuyBtn = styled.button<{ buyModal: boolean }>`
-  width: ${(props) => (props.buyModal ? '50%' : '40%')};
+export const BuyBtn = styled.button`
+  width: 50%;
   height: 44px;
   background-color: transparent;
   border: 1px solid #c3c2c6;
@@ -308,17 +275,7 @@ export const OptionPrice = styled.p`
 
 export const BtnWrapper = styled.div`
   width: 100%;
-  height: 120px;
   margin-top: 8px;
-  padding: 8px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-export const WidthDivider = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

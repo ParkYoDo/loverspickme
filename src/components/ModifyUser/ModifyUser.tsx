@@ -9,7 +9,6 @@ import { updateUser } from 'store/user';
 import { TfiClose } from 'react-icons/tfi';
 import DaumPostcode from 'react-daum-postcode';
 import { RootState } from 'store/store';
-// import onClickOutSide from 'utils/onClickOutSide';
 
 interface Props {
   setModifyUserModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -251,21 +250,6 @@ function ModifyUser({ setModifyUserModal }: Props) {
       }
     }
   };
-
-  // 카카오 주소 api 외부 클릭시 닫기
-  // useEffect(() => {
-  //   const clickOutside = (e) => {
-  //     if (daumPost && daumPostRef.current && daumPostRef.current !== e.target) {
-  //       setDaumPost(false);
-  //     }
-  //   };
-  //   document.addEventListener('mousedown', clickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', clickOutside);
-  //   };
-  // }, [daumPost]);
-
-  // onClickOutSide({ component: daumPost, componentRef: daumPostRef, setState: setDaumPost });
 
   useEffect(() => {
     document.body.style.overflow = `hidden`;

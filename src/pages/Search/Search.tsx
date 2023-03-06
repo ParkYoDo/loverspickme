@@ -11,9 +11,12 @@ function Search() {
 
   const search = searchParams.get('keyword');
 
-  const findProducts = products.filter((product) =>
-    product.name!.toLowerCase().replace(' ', '').includes(search!.toLowerCase().replace(' ', ''))
-  );
+  const findProducts =
+    search === ''
+      ? []
+      : products.filter((product) =>
+          product.name!.toLowerCase().replace(' ', '').includes(search!.toLowerCase().replace(' ', ''))
+        );
 
   const moveProductPage = (e: React.MouseEvent<HTMLDivElement>) => {
     navigate(`/product/${e.currentTarget.dataset.id}?tab=0`);

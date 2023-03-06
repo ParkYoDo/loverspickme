@@ -1,7 +1,16 @@
 import styled from 'styled-components';
 import DaumPostcode from 'react-daum-postcode';
 
-export const SignUpBlock = styled.form``;
+export const SignUpBlock = styled.form`
+  width: 460px;
+  margin: 0 auto;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 640px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 720px;
+  }
+`;
 
 export const ImageUploader = styled.div`
   display: flex;
@@ -9,8 +18,8 @@ export const ImageUploader = styled.div`
 `;
 
 export const Avatar = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
 `;
 
@@ -28,9 +37,15 @@ export const LoginInput = styled.input<{ display?: string }>`
   display: ${(props) => props.display === 'false' && 'none'};
 `;
 
+export const LoginBtnDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 export const LoginBtn = styled.button`
   margin-top: 30px;
-  width: 100%;
+  width: 460px;
   height: 40px;
   border: none;
   color: white;

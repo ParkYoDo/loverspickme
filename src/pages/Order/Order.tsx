@@ -430,214 +430,220 @@ function Order() {
           toggleDaumPostcodeModal={toggleDaumPostcodeModal}
         />
       )}
-      <S.OrderDiv>
-        <S.OrderTitle>주문 상품 정보</S.OrderTitle>
-        <S.OrderProductInfoWrapper>
-          {orderQueue.map((a, i) => {
-            const findItem = products.find((product) => product.id === a.item);
-            totalPrice += findItem?.option![0]
-              ? (a.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                  return acc + cur.count;
-                }, 0) * findItem?.price!
-              : findItem?.price! * (a.count as number);
+      <S.OrderLayoutDiv>
+        <S.OrderDiv>
+          <S.OrderTitle>주문 상품 정보</S.OrderTitle>
+          <S.OrderProductInfoWrapper>
+            {orderQueue.map((a, i) => {
+              const findItem = products.find((product) => product.id === a.item);
+              totalPrice += findItem?.option![0]
+                ? (a.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                    return acc + cur.count;
+                  }, 0) * findItem?.price!
+                : findItem?.price! * (a.count as number);
 
-            return (
-              <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={i}>
-                <S.ProductImg
-                  src={findItem?.image}
-                  alt="product_image"
-                  data-id={findItem?.id}
-                  onClick={openProductPage}
-                />
-                <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
-                  <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
-                    {findItem?.name}
-                  </S.ProductName>
-                  {findItem?.option![0]
-                    ? (a.count as { item: number; count: number }[]).map((a, i) => (
-                        <S.ProductCount data-id={findItem.id} onClick={openProductPage} key={a.item}>
-                          {i + 1}. {findItem.option![a.item]} - {a.count}개
-                        </S.ProductCount>
-                      ))
-                    : findItem !== undefined && (
-                        <S.ProductCount data-id={findItem.id} onClick={openProductPage}>
-                          {`${a.count}개`}
-                        </S.ProductCount>
-                      )}
+              return (
+                <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={i}>
+                  <S.ProductImg
+                    src={findItem?.image}
+                    alt="product_image"
+                    data-id={findItem?.id}
+                    onClick={openProductPage}
+                  />
+                  <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
+                    <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
+                      {findItem?.name}
+                    </S.ProductName>
+                    {findItem?.option![0]
+                      ? (a.count as { item: number; count: number }[]).map((a, i) => (
+                          <S.ProductCount data-id={findItem.id} onClick={openProductPage} key={a.item}>
+                            {i + 1}. {findItem.option![a.item]} - {a.count}개
+                          </S.ProductCount>
+                        ))
+                      : findItem !== undefined && (
+                          <S.ProductCount data-id={findItem.id} onClick={openProductPage}>
+                            {`${a.count}개`}
+                          </S.ProductCount>
+                        )}
 
-                  <S.ProductPrice data-id={findItem?.id} onClick={openProductPage}>
-                    {(findItem?.option![0]
-                      ? (a.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                          return acc + cur.count;
-                        }, 0) * findItem?.price!
-                      : findItem?.price! * (a.count as number)
-                    )
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    원
-                  </S.ProductPrice>
-                </S.ProductInfoDiv>
-              </S.OrderProductInfoDiv>
-            );
-          })}
-        </S.OrderProductInfoWrapper>
+                    <S.ProductPrice data-id={findItem?.id} onClick={openProductPage}>
+                      {(findItem?.option![0]
+                        ? (a.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                            return acc + cur.count;
+                          }, 0) * findItem?.price!
+                        : findItem?.price! * (a.count as number)
+                      )
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      원
+                    </S.ProductPrice>
+                  </S.ProductInfoDiv>
+                </S.OrderProductInfoDiv>
+              );
+            })}
+          </S.OrderProductInfoWrapper>
 
-        <S.DeliveryCostDiv>
-          배송비
-          <S.DeliveryCost>{totalPrice >= 50000 ? '무료' : '3,000원'}</S.DeliveryCost>
-        </S.DeliveryCostDiv>
-      </S.OrderDiv>
+          <S.DeliveryCostDiv>
+            배송비
+            <S.DeliveryCost>{totalPrice >= 50000 ? '무료' : '3,000원'}</S.DeliveryCost>
+          </S.DeliveryCostDiv>
+        </S.OrderDiv>
 
-      <S.OrderDiv>
-        <S.OrderTitle>주문자 정보</S.OrderTitle>
-        <S.OrdererInfoDiv>
-          <S.OrdererInfoInput
-            type="text"
-            name="ordererName"
-            value={ordererName}
-            placeholder="이름"
-            onChange={onOrdererInfoChange}
-            errInput={ordererNameErr}
-          />
-          {ordererNameErr && <S.InputErrDiv>{ordererNameErr}</S.InputErrDiv>}
-          <S.OrdererInfoInput
-            type="text"
-            name="ordererPhone"
-            value={ordererPhone}
-            placeholder="연락처"
-            onChange={onOrdererInfoChange}
-            errInput={ordererPhoneErr}
-            maxLength={13}
-          />
-          {ordererPhoneErr && <S.InputErrDiv>{ordererPhoneErr}</S.InputErrDiv>}
-          <S.OrdererInfoInput
-            type="text"
-            name="ordererEmail"
-            value={ordererEmail}
-            placeholder="이메일"
-            onChange={onOrdererInfoChange}
-            errInput={ordererEmailErr}
-          />
-          {ordererEmailErr && <S.InputErrDiv>{ordererEmailErr}</S.InputErrDiv>}
-        </S.OrdererInfoDiv>
-      </S.OrderDiv>
-
-      <S.OrderDiv>
-        <S.OrderTitle>배송 정보</S.OrderTitle>
-        <S.DeliveryInfoDiv>
-          <S.DeliveryCheckBoxLabel htmlFor="checkbox">
-            <S.DeliveryCheckBox
-              type="checkbox"
-              id="checkbox"
-              name="checkbox"
-              checked={ordererName === receiverName && ordererPhone === receiverPhone ? true : false}
-              onChange={onDeliveryInfoChange}
+        <S.OrderDiv>
+          <S.OrderTitle>주문자 정보</S.OrderTitle>
+          <S.OrdererInfoDiv>
+            <S.OrdererInfoInput
+              type="text"
+              name="ordererName"
+              value={ordererName}
+              placeholder="이름"
+              onChange={onOrdererInfoChange}
+              errInput={ordererNameErr}
             />
-            주문자 정보와 동일
-          </S.DeliveryCheckBoxLabel>
-          <S.DeliveryInfoInput
-            type="text"
-            name="receiverName"
-            value={receiverName}
-            placeholder="수령인"
-            onChange={onDeliveryInfoChange}
-          />
-          {receiverNameErr && <S.InputErrDiv>{receiverNameErr}</S.InputErrDiv>}
-          <S.DeliveryInfoInput
-            type="text"
-            name="receiverPhone"
-            value={receiverPhone}
-            placeholder="연락처"
-            onChange={onDeliveryInfoChange}
-            maxLength={13}
-          />
-          {receiverPhoneErr && <S.InputErrDiv>{receiverPhoneErr}</S.InputErrDiv>}
-          <S.FlexRowDiv>
+            {ordererNameErr && <S.InputErrDiv>{ordererNameErr}</S.InputErrDiv>}
+            <S.OrdererInfoInput
+              type="text"
+              name="ordererPhone"
+              value={ordererPhone}
+              placeholder="연락처"
+              onChange={onOrdererInfoChange}
+              errInput={ordererPhoneErr}
+              maxLength={13}
+            />
+            {ordererPhoneErr && <S.InputErrDiv>{ordererPhoneErr}</S.InputErrDiv>}
+            <S.OrdererInfoInput
+              type="text"
+              name="ordererEmail"
+              value={ordererEmail}
+              placeholder="이메일"
+              onChange={onOrdererInfoChange}
+              errInput={ordererEmailErr}
+            />
+            {ordererEmailErr && <S.InputErrDiv>{ordererEmailErr}</S.InputErrDiv>}
+          </S.OrdererInfoDiv>
+        </S.OrderDiv>
+      </S.OrderLayoutDiv>
+
+      <S.OrderLayoutDiv>
+        <S.OrderDiv>
+          <S.OrderTitle>배송 정보</S.OrderTitle>
+          <S.DeliveryInfoDiv>
+            <S.DeliveryCheckBoxLabel htmlFor="checkbox">
+              <S.DeliveryCheckBox
+                type="checkbox"
+                id="checkbox"
+                name="checkbox"
+                checked={ordererName === receiverName && ordererPhone === receiverPhone ? true : false}
+                onChange={onDeliveryInfoChange}
+              />
+              주문자 정보와 동일
+            </S.DeliveryCheckBoxLabel>
             <S.DeliveryInfoInput
               type="text"
-              name="receiverPostCode"
-              value={receiverPostCode}
-              placeholder="우편번호"
+              name="receiverName"
+              value={receiverName}
+              placeholder="수령인"
+              onChange={onDeliveryInfoChange}
+            />
+            {receiverNameErr && <S.InputErrDiv>{receiverNameErr}</S.InputErrDiv>}
+            <S.DeliveryInfoInput
+              type="text"
+              name="receiverPhone"
+              value={receiverPhone}
+              placeholder="연락처"
+              onChange={onDeliveryInfoChange}
+              maxLength={13}
+            />
+            {receiverPhoneErr && <S.InputErrDiv>{receiverPhoneErr}</S.InputErrDiv>}
+            <S.FlexRowDiv>
+              <S.DeliveryInfoInput
+                type="text"
+                name="receiverPostCode"
+                value={receiverPostCode}
+                placeholder="우편번호"
+                onChange={onDeliveryInfoChange}
+                onClick={toggleDaumPostcodeModal}
+                halfWidth
+              />
+              <S.OpenPostCodeBtn onClick={toggleDaumPostcodeModal}>주소찾기</S.OpenPostCodeBtn>
+            </S.FlexRowDiv>
+
+            <S.DeliveryInfoInput
+              type="text"
+              name="receiverAddress"
+              value={receiverAddress}
+              placeholder="주소"
               onChange={onDeliveryInfoChange}
               onClick={toggleDaumPostcodeModal}
-              halfWidth
             />
-            <S.OpenPostCodeBtn onClick={toggleDaumPostcodeModal}>주소찾기</S.OpenPostCodeBtn>
-          </S.FlexRowDiv>
+            <S.DeliveryInfoInput
+              type="text"
+              name="receiverDetailAddress"
+              value={receiverDetailAddress}
+              placeholder="상세주소"
+              onChange={onDeliveryInfoChange}
+            />
+            {receiverDetailAddressErr && <S.InputErrDiv>{receiverDetailAddressErr}</S.InputErrDiv>}
 
-          <S.DeliveryInfoInput
-            type="text"
-            name="receiverAddress"
-            value={receiverAddress}
-            placeholder="주소"
-            onChange={onDeliveryInfoChange}
-            onClick={toggleDaumPostcodeModal}
-          />
-          <S.DeliveryInfoInput
-            type="text"
-            name="receiverDetailAddress"
-            value={receiverDetailAddress}
-            placeholder="상세주소"
-            onChange={onDeliveryInfoChange}
-          />
-          {receiverDetailAddressErr && <S.InputErrDiv>{receiverDetailAddressErr}</S.InputErrDiv>}
+            <S.DeliveryMemoDiv>
+              <S.DeliveryMemoTitle>배송메모</S.DeliveryMemoTitle>
+              <S.DeliveryMemoSelect name="receiverDeliveryMemo" defaultValue="option1" onChange={onDeliveryMemoChange}>
+                <S.DeliveryMemoOption value="배송메모를 선택해주세요">배송메모를 선택해주세요</S.DeliveryMemoOption>
+                <S.DeliveryMemoOption value="배송 전에 미리 연락 바랍니다">
+                  배송 전에 미리 연락 바랍니다
+                </S.DeliveryMemoOption>
+                <S.DeliveryMemoOption value="부재시 경비실에 맡겨주세요">
+                  부재시 경비실에 맡겨주세요
+                </S.DeliveryMemoOption>
+                <S.DeliveryMemoOption value="부재시 전화나 문자를 남겨주세요">
+                  부재시 전화나 문자를 남겨주세요
+                </S.DeliveryMemoOption>
+                <S.DeliveryMemoOption value="직접입력">직접입력</S.DeliveryMemoOption>
+              </S.DeliveryMemoSelect>
+              {receiverDeliveryMemoErr && <S.InputErrDiv>{receiverDeliveryMemoErr}</S.InputErrDiv>}
+              {selfDeliveryMemo && (
+                <>
+                  <S.DeliveryInfoInput
+                    type="text"
+                    name="selfDeliveryMemoContent"
+                    value={selfDeliveryMemoContent}
+                    placeholder="배송메모를 입력해주세요"
+                    onChange={onDeliveryInfoChange}
+                  />
+                  {selfDeliveryMemoContentErr && <S.InputErrDiv>{selfDeliveryMemoContentErr}</S.InputErrDiv>}
+                </>
+              )}
+            </S.DeliveryMemoDiv>
+          </S.DeliveryInfoDiv>
+        </S.OrderDiv>
 
-          <S.DeliveryMemoDiv>
-            <S.DeliveryMemoTitle>배송메모</S.DeliveryMemoTitle>
-            <S.DeliveryMemoSelect name="receiverDeliveryMemo" defaultValue="option1" onChange={onDeliveryMemoChange}>
-              <S.DeliveryMemoOption value="배송메모를 선택해주세요">배송메모를 선택해주세요</S.DeliveryMemoOption>
-              <S.DeliveryMemoOption value="배송 전에 미리 연락 바랍니다">
-                배송 전에 미리 연락 바랍니다
-              </S.DeliveryMemoOption>
-              <S.DeliveryMemoOption value="부재시 경비실에 맡겨주세요">부재시 경비실에 맡겨주세요</S.DeliveryMemoOption>
-              <S.DeliveryMemoOption value="부재시 전화나 문자를 남겨주세요">
-                부재시 전화나 문자를 남겨주세요
-              </S.DeliveryMemoOption>
-              <S.DeliveryMemoOption value="직접입력">직접입력</S.DeliveryMemoOption>
-            </S.DeliveryMemoSelect>
-            {receiverDeliveryMemoErr && <S.InputErrDiv>{receiverDeliveryMemoErr}</S.InputErrDiv>}
-            {selfDeliveryMemo && (
-              <>
-                <S.DeliveryInfoInput
-                  type="text"
-                  name="selfDeliveryMemoContent"
-                  value={selfDeliveryMemoContent}
-                  placeholder="배송메모를 입력해주세요"
-                  onChange={onDeliveryInfoChange}
-                />
-                {selfDeliveryMemoContentErr && <S.InputErrDiv>{selfDeliveryMemoContentErr}</S.InputErrDiv>}
-              </>
-            )}
-          </S.DeliveryMemoDiv>
-        </S.DeliveryInfoDiv>
-      </S.OrderDiv>
-
-      <S.OrderDiv>
-        <S.OrderTitle>주문 요약</S.OrderTitle>
-        <S.OrderSummaryDiv>
-          <S.ProductPriceDiv>
+        <S.OrderDiv>
+          <S.OrderTitle>주문 요약</S.OrderTitle>
+          <S.OrderSummaryDiv>
+            <S.ProductPriceDiv>
+              <S.DetailPriceDiv>
+                <S.DetailPriceContent>상품금액</S.DetailPriceContent>
+                <S.DetailPriceContent>
+                  {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+                </S.DetailPriceContent>
+              </S.DetailPriceDiv>
+              <S.DetailPriceDiv>
+                <S.DetailPriceContent>배송비</S.DetailPriceContent>
+                <S.DetailPriceContent>{totalPrice >= 50000 ? '+ 무료' : '+ 3,000원'}</S.DetailPriceContent>
+              </S.DetailPriceDiv>
+            </S.ProductPriceDiv>
             <S.DetailPriceDiv>
-              <S.DetailPriceContent>상품금액</S.DetailPriceContent>
-              <S.DetailPriceContent>
-                {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
-              </S.DetailPriceContent>
+              <S.TotalPriceContent>총 주문금액</S.TotalPriceContent>
+              <S.TotalPriceContent>
+                {totalPrice >= 50000
+                  ? `${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`
+                  : (totalPrice + 3000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
+              </S.TotalPriceContent>
             </S.DetailPriceDiv>
-            <S.DetailPriceDiv>
-              <S.DetailPriceContent>배송비</S.DetailPriceContent>
-              <S.DetailPriceContent>{totalPrice >= 50000 ? '+ 무료' : '+ 3,000원'}</S.DetailPriceContent>
-            </S.DetailPriceDiv>
-          </S.ProductPriceDiv>
-          <S.DetailPriceDiv>
-            <S.TotalPriceContent>총 주문금액</S.TotalPriceContent>
-            <S.TotalPriceContent>
-              {totalPrice >= 50000
-                ? `${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`
-                : (totalPrice + 3000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
-            </S.TotalPriceContent>
-          </S.DetailPriceDiv>
-          <S.PurchaseBtn onClick={onClickPurchaseBtn}>결제하기</S.PurchaseBtn>
-        </S.OrderSummaryDiv>
-      </S.OrderDiv>
+            <S.PurchaseBtn onClick={onClickPurchaseBtn}>결제하기</S.PurchaseBtn>
+          </S.OrderSummaryDiv>
+        </S.OrderDiv>
+      </S.OrderLayoutDiv>
     </S.OrderWrapper>
   );
 }

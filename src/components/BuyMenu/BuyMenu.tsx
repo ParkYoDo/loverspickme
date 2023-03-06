@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import * as S from 'components/BuyMenu/BuyMenuStyle';
 import { updateDoc, arrayUnion, arrayRemove, getDoc, doc } from 'firebase/firestore';
 import { db } from 'service/firebase_config';
-import { BsChevronCompactDown, BsCart2, BsChevronDown, BsXCircle } from 'react-icons/bs';
+import { BsChevronCompactDown, BsChevronDown, BsXCircle } from 'react-icons/bs';
 import { IoHeartOutline, IoHeart } from 'react-icons/io5';
-import naverIcon from 'image/naverPay_icon.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCart, addWishList, removeWishList } from 'store/user';
 import { addOrderQueue } from 'store/orderQueue';
@@ -351,46 +350,25 @@ function BuyMenu({ product }: Props) {
             </S.OptionWrapper>
 
             <S.BtnWrapper>
-              <S.WidthDivider>
-                <S.BuyBtn buyModal={buyModal} onClick={onClickCart}>
-                  장바구니
-                </S.BuyBtn>
-                <S.BuyBtn buyModal={buyModal} onClick={onClickOrderBtn}>
-                  구매하기
-                </S.BuyBtn>
-              </S.WidthDivider>
-              <S.WidthDivider>
-                <S.NaverPayBtn
-                  buyModal={buyModal}
-                  onClick={() => {
-                    alert('기능 구현 중입니다');
-                  }}
-                >
-                  <S.NaverImg src={naverIcon} alt="naver_icon" />
-                  구매하기
-                </S.NaverPayBtn>
+              <S.BuyBtn onClick={onClickCart}>장바구니</S.BuyBtn>
+              <S.BuyBtn onClick={onClickOrderBtn}>구매하기</S.BuyBtn>
+              <S.HeartBtnDiv>
                 <S.HeartBtn onClick={onClickWishBtn}>
                   {user?.wish?.find((a) => a === product.id) ? <IoHeart /> : <IoHeartOutline />}
                 </S.HeartBtn>
-              </S.WidthDivider>
+              </S.HeartBtnDiv>
             </S.BtnWrapper>
           </S.BuyMenuWrapper>
         </S.BackGroundWrapper>
       ) : (
         //  구매버튼 누르기 전
 
-        <S.BuyMenuWrapper>
-          <S.CartBtn onClick={onClickBtn}>
-            <BsCart2 />
-          </S.CartBtn>
-
-          <S.NaverPayBtn buyModal={buyModal} onClick={onClickBtn}>
-            <S.NaverImg src={naverIcon} alt="naver_icon" />
-          </S.NaverPayBtn>
-
-          <S.BuyBtn buyModal={buyModal} onClick={onClickBtn}>
-            구매하기
-          </S.BuyBtn>
+        <S.BuyMenuWrapper onClick={onClickBtn}>
+          <S.BuyBtn onClick={onClickCart}>장바구니</S.BuyBtn>
+          <S.BuyBtn>구매하기</S.BuyBtn>
+          <S.HeartBtnDiv>
+            <S.HeartBtn>{user?.wish?.find((a) => a === product.id) ? <IoHeart /> : <IoHeartOutline />}</S.HeartBtn>
+          </S.HeartBtnDiv>
         </S.BuyMenuWrapper>
       )}
     </>

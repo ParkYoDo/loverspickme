@@ -3,11 +3,25 @@ import styled from 'styled-components';
 export const MainImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 400px;
+  margin: 0 auto;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 500px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 600px;
+  }
 `;
 
 export const MainImage = styled.img`
   width: 100%;
   height: 400px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    height: 500px;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 700px;
+  }
 `;
 
 export const MainTitle = styled.p`

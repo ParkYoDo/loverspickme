@@ -2,6 +2,25 @@ import styled from 'styled-components';
 
 export const OrderWrapper = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    flex-direction: row;
+    gap: 24px;
+  }
+  @media screen and (min-width: 1024px) {
+    flex-direction: row;
+    gap: 24px;
+  }
+`;
+
+export const OrderLayoutDiv = styled.div`
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 50%;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+  }
 `;
 
 export const OrderDiv = styled.div`
@@ -10,6 +29,12 @@ export const OrderDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 12px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    margin: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    margin: 0;
+  }
 `;
 
 export const OrderTitle = styled.div`

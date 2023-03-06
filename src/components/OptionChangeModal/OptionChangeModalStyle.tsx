@@ -7,7 +7,7 @@ export const OptionChangeModalWrapper = styled.div`
   top: 0;
   left: 0;
   background-color: rgb(255, 255, 255);
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

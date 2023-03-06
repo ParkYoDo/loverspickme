@@ -1,5 +1,24 @@
 import styled from 'styled-components';
 
+export const LoginWrapper = styled.div`
+  width: 460px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 720px;
+  }
+  @media screen and (min-width: 1024px) {
+    margin-top: 80px;
+    width: 900px;
+    flex-direction: row;
+    gap: 24px;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+`;
+
 export const LoginInput = styled.input`
   width: 100%;
   height: 40px;
@@ -10,7 +29,7 @@ export const LoginInput = styled.input`
 `;
 
 export const LoginBtn = styled.button`
-  width: 100%;
+  width: 460px;
   height: 40px;
   border: none;
   color: white;
@@ -23,6 +42,9 @@ export const LoginBtn = styled.button`
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
   }
+  @media screen and (min-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const KakaoLoginBtn = styled.div`
@@ -33,7 +55,7 @@ export const KakaoLoginBtn = styled.div`
   gap: 10px;
   background-color: rgb(255, 235, 0);
   border-radius: 12px;
-  width: 100%;
+  width: 460px;
   height: 40px;
   font-size: 14px;
   cursor: pointer;
@@ -50,6 +72,9 @@ export const KakaoLoginBtn = styled.div`
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
   }
+  @media screen and (min-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const LoginImage = styled.img`
@@ -58,23 +83,32 @@ export const LoginImage = styled.img`
   border-radius: 12px;
   background-color: white;
   padding: 10px;
-  margin-bottom: 30px;
+  margin: 30px 0;
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+    height: 440px;
+    margin: 0;
+  }
 `;
 
-export const LoginForm = styled.form``;
-
-export const SpaceBetweenDiv = styled.div`
+export const LoginForm = styled.form`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 20px 0;
-  font-size: 12px;
-  padding: 0 4px;
+  flex-direction: column;
+  align-items: center;
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+    justify-content: center;
+  }
 `;
 
 export const Button = styled.button`
   border: none;
   background-color: transparent;
+  width: 100%;
+  text-align: right;
+  margin: 20px 0;
+  font-size: 12px;
+  padding: 0 4px;
 `;
 
 export const KakaoLoginImage = styled.img``;

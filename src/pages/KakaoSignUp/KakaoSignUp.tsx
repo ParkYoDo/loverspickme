@@ -242,8 +242,9 @@ function KakaoSignUp() {
         />
         {addressErr && <S.ErrorCodeText>{addressErr}</S.ErrorCodeText>}
         {detailAddressErr && <S.ErrorCodeText>{detailAddressErr}</S.ErrorCodeText>}
-
-        <S.LoginBtn>회원가입</S.LoginBtn>
+        <S.LoginBtnDiv>
+          <S.LoginBtn>회원가입</S.LoginBtn>
+        </S.LoginBtnDiv>
       </S.SignUpBlock>
     </>
   );

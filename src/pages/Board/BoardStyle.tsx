@@ -13,8 +13,7 @@ export const RegisterQnABtn = styled.button`
   padding: 8px 12px;
   font-size: 12px;
   &:active,
-  &:hover,
-  &:focus {
+  &:hover {
     color: #ff95be;
     border: 1px solid #ff95be;
   }

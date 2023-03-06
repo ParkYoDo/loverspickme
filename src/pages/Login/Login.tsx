@@ -93,32 +93,26 @@ function Login() {
   }, [authorizeCode, navigate, dispatch]);
 
   useEffect(() => {
-    console.log(authorizeCode);
     authorizeCode && checkSignUpUser();
   }, [checkSignUpUser, authorizeCode]);
 
   return (
-    <>
+    <S.LoginWrapper>
       <S.LoginImage src={loversLogo} alt="lovers_logo" />
 
       <S.LoginForm onSubmit={onLogin}>
         <S.LoginInput autoFocus type="text" name="email" value={email} placeholder="이메일" onChange={onChange} />
         <S.LoginInput type="password" name="password" value={password} placeholder="비밀번호" onChange={onChange} />
-
-        <S.SpaceBetweenDiv>
-          <S.Button type="button" onClick={moveSignUpPage}>
-            회원가입
-          </S.Button>
-          <S.Button>아이디·비밀번호 찾기</S.Button>
-        </S.SpaceBetweenDiv>
+        <S.Button type="button" onClick={moveSignUpPage}>
+          회원가입
+        </S.Button>
         <S.LoginBtn type="submit">로그인</S.LoginBtn>
+        <S.KakaoLoginBtn onClick={onLoginWithKakao}>
+          <S.KakaoLoginImage src={kakaoIcon} alt="kakaoIcon" />
+          <S.KakaoLoginText>카카오 로그인</S.KakaoLoginText>
+        </S.KakaoLoginBtn>
       </S.LoginForm>
-
-      <S.KakaoLoginBtn onClick={onLoginWithKakao}>
-        <S.KakaoLoginImage src={kakaoIcon} alt="kakaoIcon" />
-        <S.KakaoLoginText>카카오 로그인</S.KakaoLoginText>
-      </S.KakaoLoginBtn>
-    </>
+    </S.LoginWrapper>
   );
 }
 

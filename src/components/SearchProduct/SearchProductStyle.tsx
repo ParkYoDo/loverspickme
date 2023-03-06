@@ -11,7 +11,7 @@ export const SearchWrapper = styled.div`
 `;
 
 export const SearchForm = styled.form`
-  margin-top: 30%;
+  margin-top: 150px;
   display: flex;
   flex-direction: row;
   justify-content: center;
