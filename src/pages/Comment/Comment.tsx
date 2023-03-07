@@ -8,6 +8,7 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion, collection } from 'firebase
 import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 import { RootState } from 'store/store';
 import onScrollLock from 'utils/onScrollLock';
+import Loading from 'components/Loading/Loading';
 
 function Comment() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ function Comment() {
   const user = useSelector((state: RootState) => state.user);
   const products = useSelector((state: RootState) => state.products);
   const product = products.find((a) => a.id === productId);
+
+  const [loading, setLoading] = useState(false);
 
   const [comment, setComment] = useState({
     title: '',
@@ -104,9 +107,11 @@ function Comment() {
     } else if (!content) {
       alert('내용을 입력하세요');
     } else {
-      alert('작성되었습니다');
+      setLoading(true);
       const newContent = await uploadImage();
       await uploadComment(newContent);
+      setLoading(false);
+      alert('작성되었습니다');
       navigate(-1);
     }
   };
@@ -115,32 +120,31 @@ function Comment() {
 
   return (
     <>
-      <>
-        <S.CommentWrapper>
-          <S.ModalTitleDiv>
-            <S.CancelBtn onClick={movePrevPage} />
-            <S.CommentTitle>상품평</S.CommentTitle>
-            <S.SubmitBtn onClick={onSubmit}>작성</S.SubmitBtn>
-          </S.ModalTitleDiv>
-          <S.ProductDiv>
-            <S.ProductName>{product?.name}</S.ProductName>
-          </S.ProductDiv>
+      {loading && <Loading />}
+      <S.CommentWrapper>
+        <S.ModalTitleDiv>
+          <S.CancelBtn onClick={movePrevPage} />
+          <S.CommentTitle>상품평</S.CommentTitle>
+          <S.SubmitBtn onClick={onSubmit}>작성</S.SubmitBtn>
+        </S.ModalTitleDiv>
+        <S.ProductDiv>
+          <S.ProductName>{product?.name}</S.ProductName>
+        </S.ProductDiv>
 
-          <S.CommentTitleDiv>
-            <S.CommentTitleInput
-              autoFocus
-              type="text"
-              name="title"
-              value={title}
-              placeholder="제목"
-              onChange={onChange}
-            />
-            <S.LockImage />
-          </S.CommentTitleDiv>
+        <S.CommentTitleDiv>
+          <S.CommentTitleInput
+            autoFocus
+            type="text"
+            name="title"
+            value={title}
+            placeholder="제목"
+            onChange={onChange}
+          />
+          <S.LockImage />
+        </S.CommentTitleDiv>
 
-          <Ckeditor state={comment} setState={setComment} />
-        </S.CommentWrapper>
-      </>
+        <Ckeditor state={comment} setState={setComment} />
+      </S.CommentWrapper>
     </>
   );
 }

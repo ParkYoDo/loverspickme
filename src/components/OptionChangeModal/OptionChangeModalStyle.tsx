@@ -126,7 +126,7 @@ export const BottomBtnDiv = styled.div`
   flex-direction: row;
   gap: 10px;
   background-color: white;
-  z-index: 1;
+  z-index: 2;
   box-shadow: 0px 0px 5px -4px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0px 0px 5px -4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 5px -4px rgba(0, 0, 0, 0.75);

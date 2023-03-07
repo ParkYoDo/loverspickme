@@ -8,6 +8,7 @@ import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 import { RootState } from 'store/store';
 import Ckeditor from 'components/Ckeditor/Ckeditor';
 import onScrollLock from 'utils/onScrollLock';
+import Loading from 'components/Loading/Loading';
 
 function Inquiry() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ function Inquiry() {
   const user = useSelector((state: RootState) => state.user);
   const products = useSelector((state: RootState) => state.products);
   const product = products.find((a) => a.id === productId);
+
+  const [loading, setLoading] = useState(false);
 
   const [inquiry, setInquiry] = useState({
     title: '',
@@ -105,9 +108,11 @@ function Inquiry() {
     } else if (!content) {
       alert('내용을 입력하세요');
     } else {
-      alert('작성되었습니다');
+      setLoading(true);
       const newContent = await uploadImage();
       await uploadInquiry(newContent);
+      setLoading(false);
+      alert('작성되었습니다');
       navigate(-1);
     }
   };
@@ -116,6 +121,7 @@ function Inquiry() {
 
   return (
     <>
+      {loading && <Loading />}
       <S.InquiryWrapper>
         <S.ModalTitleDiv>
           <S.CancelBtn onClick={movePrevPage} />

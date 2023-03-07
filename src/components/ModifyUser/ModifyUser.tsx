@@ -9,6 +9,7 @@ import { updateUser } from 'store/user';
 import { TfiClose } from 'react-icons/tfi';
 import DaumPostcode from 'react-daum-postcode';
 import { RootState } from 'store/store';
+import Loading from 'components/Loading/Loading';
 
 interface Props {
   setModifyUserModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,6 +37,8 @@ function ModifyUser({ setModifyUserModal }: Props) {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
   const profileImg = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
+  const [loading, setLoading] = useState(false);
 
   const [input, setInput] = useState<inputInterface>({
     image: user.image!,
@@ -197,6 +200,7 @@ function ModifyUser({ setModifyUserModal }: Props) {
           // 상세주소 입력
           setErrorCode({ detailAddressErr: '상세 주소를 입력하세요' });
         } else {
+          setLoading(true);
           const userRef = doc(db, 'users', user.uid!);
           let success = true;
           //이미지
@@ -243,6 +247,7 @@ function ModifyUser({ setModifyUserModal }: Props) {
               });
           }
           if (success) {
+            setLoading(false);
             setErrorCode({});
             setModifyUserModal(false);
           }
@@ -260,6 +265,7 @@ function ModifyUser({ setModifyUserModal }: Props) {
 
   return (
     <>
+      {loading && <Loading />}
       <S.BackGroundWrapper>
         <S.ModifyUserForm onSubmit={onModify}>
           <S.ModifyFormTitle>정보 수정</S.ModifyFormTitle>

@@ -4,10 +4,13 @@ import emailjs from '@emailjs/browser';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from 'store/store';
+import Loading from 'components/Loading/Loading';
 
 function Contact() {
   const navigate = useNavigate();
   const contactForm = useRef() as React.RefObject<HTMLFormElement>;
+
+  const [loading, setLoading] = useState(false);
 
   const user = useSelector((state: RootState) => state.user);
 
@@ -36,8 +39,10 @@ function Contact() {
     } else if (!content) {
       alert('내용을 입력하세요');
     } else {
+      setLoading(true);
       emailjs.sendForm('LoversPickMe', 'template_elxg82f', contactForm.current!, '1pots0nXUWB5J7miE').then(() => {
         alert('전송되었습니다');
+        setLoading(false);
         navigate('/');
       });
     }
@@ -56,6 +61,7 @@ function Contact() {
 
   return (
     <S.ContactWrapper>
+      {loading && <Loading />}
       <S.ContactTitle>CONTACT</S.ContactTitle>
       <S.ContactContent>협업, 프로젝트 등 브랜드에 제안 주실 내용은</S.ContactContent>
       <S.ContactContent>rucasian@korea.com으로 메일을 보내주세요</S.ContactContent>

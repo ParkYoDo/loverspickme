@@ -364,7 +364,7 @@ function BuyMenu({ product }: Props) {
         //  구매버튼 누르기 전
 
         <S.BuyMenuWrapper onClick={onClickBtn}>
-          <S.BuyBtn onClick={onClickCart}>장바구니</S.BuyBtn>
+          <S.BuyBtn>장바구니</S.BuyBtn>
           <S.BuyBtn>구매하기</S.BuyBtn>
           <S.HeartBtnDiv>
             <S.HeartBtn>{user?.wish?.find((a) => a === product.id) ? <IoHeart /> : <IoHeartOutline />}</S.HeartBtn>

@@ -8,10 +8,13 @@ import kakaoIcon from 'image/Login/kakao_icon.png';
 import axios from 'axios';
 import { setKakaoUserData } from 'store/kakaoLoginUser';
 import { useDispatch } from 'react-redux';
+import Loading from 'components/Loading/Loading';
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
   const authorizeCode = searchParams.get('code');
@@ -35,12 +38,15 @@ function Login() {
     } else if (!password) {
       alert('비밀번호를 입력하세요.');
     } else {
+      setLoading(true);
       await signInWithEmailAndPassword(auth, email, password)
         .then(() => {
+          setLoading(false);
           navigate('/');
         })
         .catch((error) => {
           if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') {
+            setLoading(false);
             alert('잘못된 이메일 또는 비밀번호입니다.');
           }
         });
@@ -98,6 +104,7 @@ function Login() {
 
   return (
     <S.LoginWrapper>
+      {loading && <Loading />}
       <S.LoginImage src={loversLogo} alt="lovers_logo" />
 
       <S.LoginForm onSubmit={onLogin}>

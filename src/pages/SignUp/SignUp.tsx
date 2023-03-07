@@ -7,11 +7,14 @@ import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { inputInterface, errorCodeInterface } from 'type/interface';
 import onClickOutSide from 'utils/onClickOutSide';
+import Loading from 'components/Loading/Loading';
 
 function SignUp() {
   const navigate = useNavigate();
   const fileInput = useRef() as React.MutableRefObject<HTMLInputElement>;
   const profileImg = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
+  const [loading, setLoading] = useState(false);
 
   const [input, setInput] = useState<inputInterface>({
     image: profileImg,
@@ -128,12 +131,14 @@ function SignUp() {
     } else if (!detailaddress) {
       setErrorCode({ detailAddressErr: '상세 주소를 입력하세요.' });
     } else {
+      setLoading(true);
       setErrorCode({});
       const uid = await signUpUser();
       const url = await upLoadImage(uid);
       await upLoadUserData(uid, url);
       alert('회원가입이 완료되었습니다.');
       setInput({});
+      setLoading(false);
       navigate('/login');
     }
   };
@@ -167,6 +172,7 @@ function SignUp() {
 
   return (
     <>
+      {loading && <Loading />}
       <S.SignUpBlock onSubmit={onSubmit}>
         <S.ImageUploader>
           <S.Avatar

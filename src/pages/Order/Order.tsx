@@ -9,6 +9,7 @@ import { orderProduct } from 'store/user';
 import { addOrderInfo } from 'store/orderQueue';
 import { RootState } from 'store/store';
 import { receiverInfoInterface } from 'type/interface';
+import Loading from 'components/Loading/Loading';
 
 function Order() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ function Order() {
 
   const [searchParams] = useSearchParams();
   const isInCart = searchParams.get('cart');
+
+  const [loading, setLoading] = useState(false);
 
   const [ordererInfo, setOrdererInfo] = useState({
     ordererName: '',
@@ -283,7 +286,6 @@ function Order() {
 
   const onClickPurchaseBtn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     if (!ordererName) {
       setErrCode({
         ...errCode,
@@ -340,6 +342,7 @@ function Order() {
         selfDeliveryMemoContentErr: '배송메모를 입력하세요',
       });
     } else {
+      setLoading(true);
       const cartItem =
         isInCart === 'true' ? user.cart?.filter((cart) => !orderQueue?.find((a) => a.item === cart.item)) : user.cart;
 
@@ -396,7 +399,7 @@ function Order() {
           receiverDeliveryMemo: receiverDeliveryMemo === '직접입력' ? selfDeliveryMemoContent : receiverDeliveryMemo,
         })
       );
-
+      setLoading(false);
       navigate('/ordersuccess');
     }
   };
@@ -422,6 +425,7 @@ function Order() {
 
   return (
     <S.OrderWrapper>
+      {loading && <Loading />}
       {daumPost && (
         <DaumPostcodeModal
           setDaumPost={setDaumPost}

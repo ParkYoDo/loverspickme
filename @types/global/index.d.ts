@@ -1,5 +1,6 @@
 declare module '*.png';
 declare module '*.jpeg';
+declare module '*.gif';
 
 declare module '@ckeditor/ckeditor5-build-classic' {
   import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
