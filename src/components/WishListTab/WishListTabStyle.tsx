@@ -76,7 +76,7 @@ export const ProductName = styled.div`
 `;
 
 export const ProductDiv = styled.div`
-  height: 230px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -85,6 +85,7 @@ export const ProductDiv = styled.div`
   padding: 14px 12px;
   position: relative;
   border-radius: 12px;
+  border: 1px solid #dedede;
   &:hover {
     background-color: #ffe4ee;
     ${RemoveBtn} {
@@ -97,16 +98,16 @@ export const ProductDiv = styled.div`
       color: #f7a7b4;
     }
   }
-  border: 1px solid red;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
-    height: 240px;
+    height: 260px;
   }
   @media screen and (min-width: 1024px) {
-    height: 240px;
+    height: 260px;
   }
 `;
 
 export const ProductImage = styled.img`
+  margin-top: 12px;
   width: 100%;
   height: 150px;
   cursor: pointer;
