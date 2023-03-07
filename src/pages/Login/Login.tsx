@@ -78,15 +78,16 @@ function Login() {
   };
 
   const checkSignUpUser = useCallback(async () => {
+    setLoading(true);
     const accessToken = await getToken(authorizeCode!);
     const userData = await getUserData(accessToken);
 
     await signInWithEmailAndPassword(auth, userData.data.kakao_account.email, userData.data.id)
       .then(() => {
+        setLoading(false);
         navigate('/');
       })
       .catch(() => {
-        navigate('/kakaosignup');
         dispatch(
           setKakaoUserData({
             uid: userData.data.id,
@@ -95,6 +96,8 @@ function Login() {
             name: userData.data.kakao_account.profile.nickname,
           })
         );
+        setLoading(false);
+        navigate('/kakaosignup');
       });
   }, [authorizeCode, navigate, dispatch]);
 
