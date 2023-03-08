@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContactWrapper = styled.div`
-  width: 400px;
+  width: 330px;
   margin: 0 auto;
   background-color: white;
   padding: 30px;
@@ -25,7 +25,7 @@ export const ContactTitle = styled.div`
 `;
 
 export const ContactContent = styled.div`
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 export const ContactForm = styled.form`

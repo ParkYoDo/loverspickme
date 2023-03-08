@@ -7,7 +7,7 @@ export const CommentWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 3;
   background-color: white;
   display: flex;
   flex-direction: column;

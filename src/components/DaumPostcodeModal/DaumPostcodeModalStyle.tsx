@@ -3,7 +3,7 @@ import DaumPostcode from 'react-daum-postcode';
 
 export const ModalWrapper = styled.div`
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 100%;

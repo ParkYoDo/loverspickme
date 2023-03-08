@@ -15,7 +15,7 @@ export const BackGroundWrapper = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 3;
+  z-index: 4;
 `;
 
 export const CloseBtn = styled.button`

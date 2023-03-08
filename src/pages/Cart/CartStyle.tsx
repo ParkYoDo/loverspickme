@@ -106,7 +106,7 @@ export const CartProductImage = styled.img`
 
 export const CartProductName = styled.div`
   color: #5d5d5d;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
 `;
 
@@ -130,7 +130,7 @@ export const ProductOptionDiv = styled.div`
 export const DeleteBtn = styled.button`
   position: absolute;
   top: 12px;
-  right: 16px;
+  right: 8px;
   border: none;
   background-color: transparent;
   font-size: 16px;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LoginWrapper = styled.div`
-  width: 460px;
+  width: 330px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@ export const LoginInput = styled.input`
 `;
 
 export const LoginBtn = styled.button`
-  width: 460px;
+  width: 330px;
   height: 40px;
   border: none;
   color: white;
@@ -41,6 +41,9 @@ export const LoginBtn = styled.button`
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 720px;
   }
   @media screen and (min-width: 1024px) {
     width: 100%;
@@ -55,7 +58,7 @@ export const KakaoLoginBtn = styled.div`
   gap: 10px;
   background-color: rgb(255, 235, 0);
   border-radius: 12px;
-  width: 460px;
+  width: 330px;
   height: 40px;
   font-size: 14px;
   cursor: pointer;
@@ -71,6 +74,9 @@ export const KakaoLoginBtn = styled.div`
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 720px;
   }
   @media screen and (min-width: 1024px) {
     width: 100%;

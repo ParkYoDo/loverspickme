@@ -18,7 +18,6 @@ export const ProductLabel = styled.div<{ noResult?: boolean }>`
 `;
 
 export const ProductWrapper = styled.div`
-  width: 460px;
   margin: 0 auto;
   display: grid;
   place-items: center;
@@ -39,8 +38,7 @@ export const ProductWrapper = styled.div`
 
 export const ProductDiv = styled.div`
   text-align: center;
-  width: 130px;
-  height: 240px;
+  width: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -57,7 +55,7 @@ export const ProductDiv = styled.div`
 export const ProductImgae = styled.img``;
 
 export const ProductName = styled.div`
-  font-size: 12px;
+  font-size: 10px;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     font-size: 14px;
   }
@@ -68,7 +66,7 @@ export const ProductName = styled.div`
 
 export const ProductPrice = styled.div`
   color: #ff95be;
-  font-size: 13px;
+  font-size: 12px;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     font-size: 15px;
   }

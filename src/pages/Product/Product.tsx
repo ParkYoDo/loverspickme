@@ -29,11 +29,7 @@ function Product() {
       {product && (
         <S.MainImageWrapper>
           <S.MainImage src={product.image} alt={product.name} />
-          <S.MainTitle>
-            {product.best === true && '(best)'}
-            {product.new === true && '(new)'}
-            {product.name}
-          </S.MainTitle>
+          <S.MainTitle>{product.name}</S.MainTitle>
           <S.MainPrice>{product.price!.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</S.MainPrice>
         </S.MainImageWrapper>
       )}

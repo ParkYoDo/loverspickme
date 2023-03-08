@@ -15,11 +15,12 @@ export const EmptyOrderListText = styled.div`
 `;
 
 export const ProductWrapper = styled.div`
-  width: 100%;
+  margin: 0 auto;
   display: grid;
+  place-items: center;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
-  gap: 8px;
+  grid-row-gap: 10px;
   padding: 12px;
   background-color: white;
   border-bottom-left-radius: 12px;
@@ -49,10 +50,39 @@ export const RemoveBtn = styled.button`
   }
 `;
 
+export const ProductDiv = styled.div`
+  text-align: center;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+  padding-top: 24px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid #dedede;
+  &:hover {
+    ${RemoveBtn} {
+      display: block;
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    padding-top: 28px;
+    width: 150px;
+    height: 300px;
+  }
+  @media screen and (min-width: 1024px) {
+    padding-top: 32px;
+    width: 200px;
+    height: 370px;
+  }
+`;
+
 export const ProductPrice = styled.div`
   color: #f991a1;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     font-size: 15px;
   }
@@ -63,7 +93,7 @@ export const ProductPrice = styled.div`
 `;
 
 export const ProductName = styled.div`
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   color: #494848;
   cursor: pointer;
@@ -75,40 +105,6 @@ export const ProductName = styled.div`
   }
 `;
 
-export const ProductDiv = styled.div`
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  gap: 4px;
-  padding: 14px 12px;
-  position: relative;
-  border-radius: 12px;
-  border: 1px solid #dedede;
-  &:hover {
-    background-color: #ffe4ee;
-    ${RemoveBtn} {
-      display: block;
-    }
-    ${ProductName} {
-      color: gray;
-    }
-    ${ProductPrice} {
-      color: #f7a7b4;
-    }
-  }
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    height: 260px;
-  }
-  @media screen and (min-width: 1024px) {
-    height: 260px;
-  }
-`;
-
 export const ProductImage = styled.img`
-  margin-top: 12px;
-  width: 100%;
-  height: 150px;
   cursor: pointer;
 `;

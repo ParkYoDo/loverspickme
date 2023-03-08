@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MainImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 330px;
   margin: 0 auto;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     width: 500px;

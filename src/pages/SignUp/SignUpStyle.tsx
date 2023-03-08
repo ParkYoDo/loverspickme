@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import DaumPostcode from 'react-daum-postcode';
 
 export const SignUpBlock = styled.form`
-  width: 460px;
+  width: 330px;
   margin: 0 auto;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     width: 640px;

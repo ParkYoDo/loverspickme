@@ -7,7 +7,7 @@ export const BackGroundWrapper = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 3;
+  z-index: 4;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -27,8 +27,8 @@ export const CloseBtn = styled.button`
 
 export const ModifyUserForm = styled.form`
   position: absolute;
-  width: 400px;
-  height: 660px;
+  width: 330px;
+  height: 90%;
   background-color: white;
   padding: 20px;
   border-radius: 12px;

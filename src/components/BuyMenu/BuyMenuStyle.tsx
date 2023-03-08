@@ -7,7 +7,7 @@ export const BackGroundWrapper = styled.div<{ moveModal?: boolean }>`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: ${(props) => (props.moveModal ? '3' : '2')};
+  z-index: ${(props) => (props.moveModal ? '4' : '3')};
   overflow-y: hidden;
   display: flex;
   flex-direction: row;
@@ -20,7 +20,6 @@ export const MovePageModal = styled.div`
   height: 150px;
   background-color: white;
   border-radius: 12px;
-  z-index: 5;
   display: flex;
   flex-direction: column;
 `;
@@ -71,7 +70,6 @@ export const BuyMenuWrapper = styled.div<{ buyModal?: boolean }>`
   border-top-left-radius: ${(props) => (props.buyModal ? '25px' : 'none')};
   border-top-right-radius: ${(props) => (props.buyModal ? '25px' : 'none')};
   overflow: hidden;
-  z-index: 1;
 `;
 
 export const HeartBtnDiv = styled.div`

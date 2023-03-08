@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const OrderListWrapper = styled.div`
-  width: 460px;
+  width: 330px;
   margin: 0 auto;
   margin-top: 70px;
   padding: 14px 18px;

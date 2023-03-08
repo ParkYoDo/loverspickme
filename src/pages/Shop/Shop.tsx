@@ -57,7 +57,8 @@ function Shop() {
 
   return (
     <>
-      <S.ShopWrapper>
+      {/* <S.ShopWrapper> */}
+      <S.selectDiv>
         <S.SelectSorting onChange={onChange} defaultValue="ascendingName">
           <S.SelectOption value="ascendingName" defaultValue="true">
             이름순
@@ -66,18 +67,19 @@ function Shop() {
           <S.SelectOption value="ascendingPrice">낮은가격순</S.SelectOption>
           <S.SelectOption value="descendingPrice">높은가격순</S.SelectOption>
         </S.SelectSorting>
-        <S.ProductWrapper>
-          {totalProducts.map((product) => (
-            <S.ProductDiv data-id={product.id} onClick={moveProductPage} key={product.id}>
-              <S.ProductImage src={product.image} alt="asd" data-id={product.id} />
-              <S.ProductName data-id={product.id}>{product.name}</S.ProductName>
-              <S.ProductPrice data-id={product.id}>
-                {product.price!.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
-              </S.ProductPrice>
-            </S.ProductDiv>
-          ))}
-        </S.ProductWrapper>
-      </S.ShopWrapper>
+      </S.selectDiv>
+      <S.ProductWrapper>
+        {totalProducts.map((product) => (
+          <S.ProductDiv data-id={product.id} onClick={moveProductPage} key={product.id}>
+            <S.ProductImage src={product.image} alt="asd" data-id={product.id} />
+            <S.ProductName data-id={product.id}>{product.name}</S.ProductName>
+            <S.ProductPrice data-id={product.id}>
+              {product.price!.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+            </S.ProductPrice>
+          </S.ProductDiv>
+        ))}
+      </S.ProductWrapper>
+      {/* </S.ShopWrapper> */}
     </>
   );
 }
