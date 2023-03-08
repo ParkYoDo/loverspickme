@@ -6,7 +6,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 export const NavWrapper = styled.div`
   position: fixed;
   padding: 0 20px;
-  width: 100%;
+  width: 100vw;
   height: 60px;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@ export const NavWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #cbebee;
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const NavIcon = styled(RxHamburgerMenu)`
