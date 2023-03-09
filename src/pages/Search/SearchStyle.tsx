@@ -52,10 +52,13 @@ export const ProductDiv = styled.div`
   }
 `;
 
-export const ProductImgae = styled.img``;
+export const ProductImage = styled.img`
+  cursor: pointer;
+`;
 
 export const ProductName = styled.div`
   font-size: 10px;
+  cursor: pointer;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     font-size: 14px;
   }
@@ -65,6 +68,7 @@ export const ProductName = styled.div`
 `;
 
 export const ProductPrice = styled.div`
+  cursor: pointer;
   color: #ff95be;
   font-size: 12px;
   @media screen and (min-width: 768px) and (max-width: 1024px) {

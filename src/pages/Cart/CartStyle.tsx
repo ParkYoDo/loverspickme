@@ -47,11 +47,13 @@ export const CheckBoxDiv = styled.div`
 export const CheckBox = styled.input`
   width: 20px;
   height: 20px;
+  cursor: pointer;
 `;
 
 export const CheckBoxLabel = styled.label`
   font-size: 16px;
   color: #7e7e7e;
+  cursor: pointer;
 `;
 
 export const CheckBoxDeleteBtn = styled.button`
@@ -95,7 +97,6 @@ export const CartProductDiv = styled.div`
   align-items: flex-start;
   gap: 10px;
   margin-bottom: 10px;
-  cursor: pointer;
 `;
 
 export const CartProductImage = styled.img`

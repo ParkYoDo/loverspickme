@@ -31,7 +31,7 @@ function Search() {
             {findProducts &&
               findProducts.map((findProduct) => (
                 <S.ProductDiv data-id={findProduct.id} onClick={moveProductPage} key={findProduct.id}>
-                  <S.ProductImgae src={findProduct.image} alt="product_image" data-id={findProduct.id} />
+                  <S.ProductImage src={findProduct.image} alt="product_image" data-id={findProduct.id} />
                   <S.ProductName data-id={findProduct.id}>{findProduct.name}</S.ProductName>
                   <S.ProductPrice data-id={findProduct.id}>{findProduct.price}원</S.ProductPrice>
                 </S.ProductDiv>

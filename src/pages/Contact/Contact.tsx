@@ -31,7 +31,7 @@ function Contact() {
 
   const sendEmail = (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user) {
+    if (!Object.keys(user).length) {
       alert('로그인이 필요합니다');
       navigate('/login');
     } else if (!title) {

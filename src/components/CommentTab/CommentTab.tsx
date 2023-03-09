@@ -1,12 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import * as S from 'components/CommentTab/CommentTabStyle';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Pagination from 'react-js-pagination';
 import ReactHtmlParser from 'html-react-parser';
 import { db } from 'service/firebase_config';
 import { doc, getDoc } from 'firebase/firestore';
 import { SlBubble } from 'react-icons/sl';
 import { productState, commentInterface } from 'type/interface';
+import { RootState } from 'store/store';
 
 interface Props {
   product: productState;
@@ -14,6 +16,8 @@ interface Props {
 
 function CommentTab({ product }: Props) {
   const navigate = useNavigate();
+
+  const user = useSelector((state: RootState) => state.user);
 
   const [comments, setComments] = useState<commentInterface[]>([]);
   const [showCommentContent, setShowCommentContent] = useState('');
@@ -28,8 +32,13 @@ function CommentTab({ product }: Props) {
     setPage(page);
   };
 
+  const onMoveLogin = () => {
+    alert('로그인이 필요합니다');
+    navigate('/login');
+  };
+
   const moveCommentPage = () => {
-    navigate(`/comment?product=${product.id}`);
+    Object.keys(user).length ? navigate(`/comment?product=${product.id}`) : onMoveLogin();
   };
 
   const getCommentContent = (e: React.MouseEvent<HTMLDivElement>) => {

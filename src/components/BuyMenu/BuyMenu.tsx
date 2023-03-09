@@ -103,57 +103,29 @@ function BuyMenu({ product }: Props) {
     return acc + (cur.count as number);
   }, 0);
 
+  const moveLoginPage = () => {
+    navigate('/login');
+    alert('로그인이 필요합니다');
+  };
+
   const onClickCart = async () => {
-    // 접속한 유저의 카트 객체 받아오기
-    const userRef = doc(db, 'users', user.uid!);
-    const res = await getDoc(userRef);
-    const cartItem: { item: string; count: number | { item: number; count: number }[] }[] = res.data()?.cart;
+    if (Object.keys(user).length) {
+      // 접속한 유저의 카트 객체 받아오기
+      const userRef = doc(db, 'users', user.uid!);
+      const res = await getDoc(userRef);
+      const cartItem: { item: string; count: number | { item: number; count: number }[] }[] = res.data()?.cart;
 
-    // 카트 객체 내부에 해당 프로덕트가 있는지 확인
-    const findItem = cartItem?.find((a) => a.item === product.id);
+      // 카트 객체 내부에 해당 프로덕트가 있는지 확인
+      const findItem = cartItem?.find((a) => a.item === product.id);
 
-    // 프로덕트에 옵션이 없으면
-    if (product.option![0] === '') {
-      // 카트에 있으면 수량을 증가시켜준다
-      if (findItem) {
-        const newUserCart = cartItem.map((a) =>
-          a.item === product.id ? { ...a, count: (a.count as number) + count } : { ...a }
-        );
-
-        await updateDoc(userRef, {
-          cart: newUserCart,
-        });
-        dispatch(addCart({ findItem, data: newUserCart }));
-        setShowOption(false);
-        setMoveModal(true);
-      } else {
-        // 카트에 없으면 수량을 담는다
-        await updateDoc(userRef, {
-          cart: arrayUnion({ item: product.id, count: count }),
-        });
-        dispatch(addCart({ findItem, data: { item: product.id, count: count } }));
-        setShowOption(false);
-        setMoveModal(true);
-      }
-    }
-    // 프로덕트에 옵션이 있으면
-    else {
-      if (selectOption.length) {
+      // 프로덕트에 옵션이 없으면
+      if (product.option![0] === '') {
+        // 카트에 있으면 수량을 증가시켜준다
         if (findItem) {
-          const mergeArray = (findItem.count as { item: number; count: number }[]).concat(selectOption);
-          const sum: { [key: string]: { item: number; count: number } } = {};
+          const newUserCart = cartItem.map((a) =>
+            a.item === product.id ? { ...a, count: (a.count as number) + count } : { ...a }
+          );
 
-          mergeArray.forEach((a) => {
-            if (sum[a.item]) {
-              sum[a.item].count = sum[a.item].count + a.count;
-            } else {
-              sum[a.item] = a;
-            }
-          });
-
-          const summary = Object.values(sum);
-
-          const newUserCart = cartItem.map((a) => (a.item === product.id ? { ...a, count: summary } : { ...a }));
           await updateDoc(userRef, {
             cart: newUserCart,
           });
@@ -161,60 +133,98 @@ function BuyMenu({ product }: Props) {
           setShowOption(false);
           setMoveModal(true);
         } else {
+          // 카트에 없으면 수량을 담는다
           await updateDoc(userRef, {
-            cart: arrayUnion({ item: product.id, count: selectOption }),
+            cart: arrayUnion({ item: product.id, count: count }),
           });
-          dispatch(
-            addCart({
-              findItem,
-              data: { item: product.id, count: selectOption },
-            })
-          );
+          dispatch(addCart({ findItem, data: { item: product.id, count: count } }));
           setShowOption(false);
           setMoveModal(true);
         }
-      } else {
-        alert('옵션을 선택하세요');
       }
-    }
+      // 프로덕트에 옵션이 있으면
+      else {
+        if (selectOption.length) {
+          if (findItem) {
+            const mergeArray = (findItem.count as { item: number; count: number }[]).concat(selectOption);
+            const sum: { [key: string]: { item: number; count: number } } = {};
+
+            mergeArray.forEach((a) => {
+              if (sum[a.item]) {
+                sum[a.item].count = sum[a.item].count + a.count;
+              } else {
+                sum[a.item] = a;
+              }
+            });
+
+            const summary = Object.values(sum);
+
+            const newUserCart = cartItem.map((a) => (a.item === product.id ? { ...a, count: summary } : { ...a }));
+            await updateDoc(userRef, {
+              cart: newUserCart,
+            });
+            dispatch(addCart({ findItem, data: newUserCart }));
+            setShowOption(false);
+            setMoveModal(true);
+          } else {
+            await updateDoc(userRef, {
+              cart: arrayUnion({ item: product.id, count: selectOption }),
+            });
+            dispatch(
+              addCart({
+                findItem,
+                data: { item: product.id, count: selectOption },
+              })
+            );
+            setShowOption(false);
+            setMoveModal(true);
+          }
+        } else {
+          alert('옵션을 선택하세요');
+        }
+      }
+    } else moveLoginPage();
   };
 
   const onClickOrderBtn = () => {
-    if (product.option![0]) {
-      if (selectOption.length) {
-        dispatch(addOrderQueue({ item: product.id, count: selectOption }));
-        navigate('/order');
+    if (Object.keys(user).length) {
+      if (product.option![0]) {
+        if (selectOption.length) {
+          dispatch(addOrderQueue({ item: product.id, count: selectOption }));
+          navigate('/order');
+        } else {
+          alert('옵션을 선택하세요');
+        }
       } else {
-        alert('옵션을 선택하세요');
+        dispatch(addOrderQueue({ item: product.id, count }));
+        navigate('/order');
       }
-    } else {
-      dispatch(addOrderQueue({ item: product.id, count }));
-      navigate('/order');
-    }
+    } else moveLoginPage();
   };
 
   const onClickWishBtn = async () => {
-    const userRef = doc(db, 'users', user.uid!);
-    const res = await getDoc(userRef);
-    const wishItem: string[] = res.data()?.wish;
+    if (Object.keys(user).length) {
+      const userRef = doc(db, 'users', user.uid!);
+      const res = await getDoc(userRef);
+      const wishItem: string[] = res.data()?.wish;
 
-    const findItem = wishItem?.find((a) => a === product.id);
+      const findItem = wishItem?.find((a) => a === product.id);
 
-    if (findItem) {
-      await updateDoc(userRef, {
-        wish: arrayRemove(product.id),
-      });
-      dispatch(removeWishList(product.id));
-    } else {
-      await updateDoc(userRef, {
-        wish: arrayUnion(product.id),
-      });
-      dispatch(addWishList(product.id));
-    }
+      if (findItem) {
+        await updateDoc(userRef, {
+          wish: arrayRemove(product.id),
+        });
+        dispatch(removeWishList(product.id));
+      } else {
+        await updateDoc(userRef, {
+          wish: arrayUnion(product.id),
+        });
+        dispatch(addWishList(product.id));
+      }
+    } else moveLoginPage();
   };
 
   const moveCartPage = async () => {
-    await setBuyModal(false);
     navigate('/cart');
   };
 

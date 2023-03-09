@@ -31,8 +31,13 @@ function Board() {
     setPage(page);
   };
 
+  const moveLoginPage = () => {
+    navigate('/login');
+    alert('로그인이 필요합니다');
+  };
+
   const moveInquiryPage = () => {
-    navigate('/inquiry');
+    Object.keys(user).length ? navigate('/inquiry') : moveLoginPage();
   };
 
   const getInquiryContent = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -77,7 +77,7 @@ function Navbar() {
   return (
     <>
       {/* SideMenu */}
-      {sideMenu && <SideMenu sideMenuToggle={sideMenuToggle} openModifyUserModal={openModifyUserModal} />}
+      {sideMenu && <SideMenu setSideMenu={setSideMenu} openModifyUserModal={openModifyUserModal} />}
       {/* SearchMenu */}
       {searchMenu && <SearchMenu searchMenuToggle={searchMenuToggle} />}
       {/* ModifyModal */}

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import DaumPostcode from 'react-daum-postcode';
 
 export const BackGroundWrapper = styled.div`
   position: fixed;
@@ -68,6 +69,7 @@ export const UserImage = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 export const ModifyInputTag = styled.p`
@@ -120,4 +122,14 @@ export const ErrorCodeText = styled.div`
   padding: 4px 12px;
   font-size: 12px;
   color: #ee6a6a;
+`;
+
+export const DaumPostDiv = styled.div`
+  width: 100%;
+`;
+
+export const DaumPost = styled(DaumPostcode)`
+  border: 1px solid black;
+  margin-bottom: 5px;
+  height: 200px !important;
 `;

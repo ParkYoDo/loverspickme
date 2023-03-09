@@ -45,6 +45,7 @@ export const SubmitBtn = styled.div`
     color: #ff95be;
     border: 1px solid #ff95be;
   }
+  cursor: pointer;
 `;
 
 export const ProductDiv = styled.div`

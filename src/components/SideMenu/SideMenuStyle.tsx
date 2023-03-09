@@ -122,3 +122,7 @@ export const StoreMenu = styled.div`
   padding: 4px 0;
   cursor: pointer;
 `;
+
+export const LogOutText = styled.div<{ textBold?: string }>`
+  color: ${(props) => props.textBold && '#838383'};
+`;

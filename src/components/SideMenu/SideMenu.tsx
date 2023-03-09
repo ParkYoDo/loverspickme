@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as S from 'components/SideMenu/SideMenuStyle';
 import { auth } from 'service/firebase_config';
 import { signOut } from 'firebase/auth';
@@ -9,62 +9,68 @@ import { IoEllipsisVerticalOutline } from 'react-icons/io5';
 import { RootState } from 'store/store';
 
 interface Props {
-  sideMenuToggle: () => void;
+  setSideMenu: React.Dispatch<React.SetStateAction<boolean>>;
   openModifyUserModal: () => void;
 }
 
-function SideMenu({ sideMenuToggle, openModifyUserModal }: Props) {
+function SideMenu({ setSideMenu, openModifyUserModal }: Props) {
   const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
   const [functionModal, setFunctionModal] = useState(false);
+
+  const sideMenuToggle = () => {
+    setSideMenu(false);
+  };
+
+  const sideMenuRef = useRef(null);
 
   const openFunctionModal = () => {
     setFunctionModal(!functionModal);
   };
 
   const moveLoginPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/login');
   };
 
   const moveAboutPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/about');
   };
 
   const moveShopPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/shop');
   };
 
   const moveBoardPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/board');
   };
 
   const moveContactPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/contact');
   };
 
   const moveMyPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/mypage');
   };
 
   const moveCartPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/cart');
   };
 
   const moveDeliveryPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/mypage?tab=0');
   };
 
   const moveWishPage = () => {
-    sideMenuToggle();
+    setSideMenu(false);
     navigate('/mypage?tab=1');
   };
 
@@ -86,7 +92,7 @@ function SideMenu({ sideMenuToggle, openModifyUserModal }: Props) {
         <S.CloseBtn onClick={sideMenuToggle}>
           <TfiClose />
         </S.CloseBtn>
-        <S.SideMenuWrapper>
+        <S.SideMenuWrapper ref={sideMenuRef}>
           {/* 로그인 시 */}
           {Object.keys(user).length !== 0 ? (
             <S.UserInfoWrapper>
@@ -113,8 +119,8 @@ function SideMenu({ sideMenuToggle, openModifyUserModal }: Props) {
           ) : (
             // 로그아웃 시
             <S.LoginWrapper onClick={moveLoginPage}>
-              <div>로그인이 필요합니다.</div>
-              <div style={{ color: '#838383' }}>로그인</div>
+              <S.LogOutText>로그인이 필요합니다.</S.LogOutText>
+              <S.LogOutText textBold="true">로그인</S.LogOutText>
             </S.LoginWrapper>
           )}
 

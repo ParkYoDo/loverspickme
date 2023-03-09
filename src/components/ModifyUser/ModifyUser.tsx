@@ -7,9 +7,9 @@ import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from 'store/user';
 import { TfiClose } from 'react-icons/tfi';
-import DaumPostcode from 'react-daum-postcode';
 import { RootState } from 'store/store';
 import Loading from 'components/Loading/Loading';
+import onClickOutside from 'utils/onClickOutSide';
 
 interface Props {
   setModifyUserModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -118,7 +118,7 @@ function ModifyUser({ setModifyUserModal }: Props) {
   };
 
   const [daumPost, setDaumPost] = useState(false);
-  const daumPostRef = useRef() as React.LegacyRef<DaumPostcode>;
+  const daumPostRef = useRef(null);
 
   const openDaumPostCode = () => {
     setDaumPost(true);
@@ -256,6 +256,8 @@ function ModifyUser({ setModifyUserModal }: Props) {
     }
   };
 
+  onClickOutside({ component: daumPost, componentRef: daumPostRef, setState: setDaumPost });
+
   useEffect(() => {
     document.body.style.overflow = `hidden`;
     return () => {
@@ -345,8 +347,8 @@ function ModifyUser({ setModifyUserModal }: Props) {
 
           <S.ModifyInputTag>* 주소</S.ModifyInputTag>
           {daumPost ? (
-            <div style={{ width: '100%' }}>
-              <DaumPostcode
+            <S.DaumPostDiv>
+              <S.DaumPost
                 ref={daumPostRef}
                 style={{
                   height: '220px',
@@ -355,7 +357,7 @@ function ModifyUser({ setModifyUserModal }: Props) {
                 autoClose
                 onComplete={onCompletePost}
               />
-            </div>
+            </S.DaumPostDiv>
           ) : (
             <>
               <S.ErrorDiv errorMessage={addressErr} style={{ borderBottom: 'none' }}>

@@ -35,8 +35,13 @@ function InquiryTab({ product }: Props) {
     setPage(page);
   };
 
+  const onMoveLogin = () => {
+    alert('로그인이 필요합니다');
+    navigate('/login');
+  };
+
   const moveInquiryPage = () => {
-    navigate(`/inquiry?product=${product.id}`);
+    Object.keys(user).length ? navigate(`/inquiry?product=${product.id}`) : onMoveLogin();
   };
 
   const getInquiryContent = (e: React.MouseEvent<HTMLDivElement>) => {

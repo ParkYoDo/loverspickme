@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const FullWidthImage = styled.img`
+  width: 100%;
+`;
+
 export const FullWidthImageDiv = styled.div`
   width: 330px;
   margin: 0 auto;
@@ -9,8 +13,7 @@ export const FullWidthImageDiv = styled.div`
   @media screen and (min-width: 1024px) {
     width: 600px;
   }
-`;
-
-export const FullWidthImage = styled.img`
-  width: 100%;
+  ${FullWidthImage}:last-child {
+    margin-bottom: 40px;
+  }
 `;

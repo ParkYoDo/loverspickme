@@ -45,9 +45,14 @@ function Login() {
           navigate('/');
         })
         .catch((error) => {
-          if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') {
-            setLoading(false);
+          console.log(error.code);
+          if (
+            error.code === 'auth/user-not-found' ||
+            error.code === 'auth/invalid-email' ||
+            error.code === 'auth/wrong-password'
+          ) {
             alert('잘못된 이메일 또는 비밀번호입니다.');
+            setLoading(false);
           }
         });
     }

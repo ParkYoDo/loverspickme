@@ -58,12 +58,16 @@ function Cart() {
   };
 
   const DeleteSelectProduct = () => {
-    const cartRef = doc(db, 'users', user.uid!);
-    const selectItems = user.cart!.filter((a) => checkList.includes(a.item));
-    selectItems.map(async (item) => {
-      await updateDoc(cartRef, { cart: arrayRemove(item) });
-    });
-    dispatch(removeCart(checkList));
+    if (checkList.length === 0) {
+      alert('삭제할 상품을 선택하세요');
+    } else {
+      const cartRef = doc(db, 'users', user.uid!);
+      const selectItems = user.cart!.filter((a) => checkList.includes(a.item));
+      selectItems.map(async (item) => {
+        await updateDoc(cartRef, { cart: arrayRemove(item) });
+      });
+      dispatch(removeCart(checkList));
+    }
   };
 
   const BuyProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {

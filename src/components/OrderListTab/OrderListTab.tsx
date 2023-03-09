@@ -10,8 +10,6 @@ function OrderListTab() {
   const order = useSelector((state: RootState) => state.user.order);
   const products = useSelector((state: RootState) => state.products);
 
-  console.log(order);
-
   const reverseOrder = order?.slice(0).sort((a, b) => {
     if (a.time < b.time) {
       return 1;
@@ -50,11 +48,11 @@ function OrderListTab() {
                 </S.DeliveryStateBtnDiv>
               </S.OrderDateDiv>
               <S.OrderProductInfoWrapper>
-                {list.orderQueue.map((orderQueue) => {
+                {list.orderQueue.map((orderQueue, i) => {
                   const findItem = products.find((product) => product.id === orderQueue.item);
 
                   return (
-                    <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={orderQueue.item}>
+                    <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={i}>
                       <S.ProductImg
                         src={findItem?.image}
                         alt="product_image"

@@ -206,6 +206,7 @@ export const DeliveryMemoSelect = styled.select`
   padding: 0 8px;
   outline: none;
   margin-top: 4px;
+  cursor: pointer;
 `;
 
 export const DeliveryMemoOption = styled.option``;
