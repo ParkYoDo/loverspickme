@@ -9,7 +9,7 @@ const PrivatePage = () => {
 
   useEffect(() => {
     !Object.keys(user).length && navigate(`/login`);
-  }, []);
+  }, [navigate, user]);
 
   return (
     <>

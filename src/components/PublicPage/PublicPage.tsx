@@ -11,7 +11,7 @@ const PublicPage = () => {
 
   useEffect(() => {
     !Object.keys(user).length && navigate(`${pathname}`);
-  }, []);
+  }, [navigate, pathname, user]);
 
   return (
     <>
