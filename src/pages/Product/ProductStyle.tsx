@@ -24,18 +24,53 @@ export const MainImage = styled.img`
   }
 `;
 
-export const MainTitle = styled.p`
+export const SkeletonMainImage = styled.div`
+  width: 330px;
+  height: 380px;
+  margin-bottom: 12px;
+  background-color: #d0d0d0;
+  border-radius: 12px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 500px;
+    height: 500px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 600px;
+    height: 700px;
+  }
+`;
+
+export const MainTitle = styled.div`
   text-align: right;
   margin-top: 15px;
   font-size: 16px;
   font-weight: 700;
 `;
 
-export const MainPrice = styled.p`
+export const SkeletonMainTitle = styled.div`
+  width: 240px;
+  margin-left: auto;
+  height: 25px;
+  margin-bottom: 12px;
+  background-color: #d0d0d0;
+  border-radius: 12px;
+`;
+
+export const MainPrice = styled.div`
   color: #ff95be;
   text-align: right;
   font-size: 16px;
   font-weight: 700;
+  margin-bottom: 12px;
+`;
+
+export const SkeletonMainPrice = styled.div`
+  width: 120px;
+  margin-left: auto;
+  height: 25px;
+  background-color: #d0d0d0;
+  border-radius: 12px;
+  margin-bottom: 12px;
 `;
 
 export const TabBtn = styled.button<{ active: boolean }>`

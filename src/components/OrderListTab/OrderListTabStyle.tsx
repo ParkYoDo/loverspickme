@@ -14,7 +14,7 @@ export const EmptyOrderListText = styled.div`
   color: #b1afaf;
 `;
 
-export const OrderListWrapper = styled.div<{ lastOrderList: boolean }>`
+export const OrderListWrapper = styled.div<{ lastOrderList?: boolean }>`
   position: relative;
   padding: 14px 18px;
   background-color: white;
@@ -99,10 +99,19 @@ export const OrderProductInfoWrapper = styled.div`
   }
 `;
 
+export const ProductImgDiv = styled.div``;
+
 export const ProductImg = styled.img`
   width: 70px;
   height: 70px;
   cursor: pointer;
+`;
+
+export const SkeletonImage = styled.div`
+  width: 70px;
+  height: 70px;
+  background-color: #d3d3d3;
+  border-radius: 12px;
 `;
 
 export const ProductInfoDiv = styled.div`
@@ -117,6 +126,13 @@ export const ProductName = styled.div`
   font-size: 14px;
   color: #535252;
   cursor: pointer;
+`;
+
+export const SkeletonText = styled.div<{ width: string }>`
+  width: ${(props) => props.width};
+  height: 20px;
+  background-color: #d3d3d3;
+  border-radius: 12px;
 `;
 
 export const ProductCount = styled.div`

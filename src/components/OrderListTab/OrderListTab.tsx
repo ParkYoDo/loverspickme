@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from 'components/OrderListTab/OrderListTabStyle';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,9 @@ function OrderListTab() {
   const order = useSelector((state: RootState) => state.user.order);
   const products = useSelector((state: RootState) => state.products);
 
+  const [loading, setLoading] = useState(true);
+  const skeletonOrder = Array(3).fill(0);
+
   const reverseOrder = order?.slice(0).sort((a, b) => {
     if (a.time < b.time) {
       return 1;
@@ -20,9 +23,31 @@ function OrderListTab() {
     navigate(`/product/${e.currentTarget.dataset.id}`);
   };
 
+  useEffect(() => {
+    products.length && setLoading(false);
+  }, [products]);
+
   return (
     <>
-      {reverseOrder?.length ? (
+      {loading ? (
+        skeletonOrder.map((_, i) => (
+          <S.OrderListWrapper key={i}>
+            <S.OrderDateDiv>
+              <S.OrderDate>주문일시 : </S.OrderDate>
+            </S.OrderDateDiv>
+            <S.OrderProductInfoWrapper>
+              <S.OrderProductInfoDiv>
+                <S.SkeletonImage />
+                <S.ProductInfoDiv>
+                  <S.SkeletonText width="180px" />
+                  <S.SkeletonText width="50px" />
+                  <S.SkeletonText width="100px" />
+                </S.ProductInfoDiv>
+              </S.OrderProductInfoDiv>
+            </S.OrderProductInfoWrapper>
+          </S.OrderListWrapper>
+        ))
+      ) : reverseOrder?.length ? (
         reverseOrder!.map((list, i) => {
           const time = new Date(list.time);
           const curTime = new Date();
@@ -53,12 +78,14 @@ function OrderListTab() {
 
                   return (
                     <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={i}>
-                      <S.ProductImg
-                        src={findItem?.image}
-                        alt="product_image"
-                        data-id={findItem?.id}
-                        onClick={openProductPage}
-                      />
+                      <S.ProductImgDiv>
+                        <S.ProductImg
+                          src={findItem?.image}
+                          alt="product_image"
+                          data-id={findItem?.id}
+                          onClick={openProductPage}
+                        />
+                      </S.ProductImgDiv>
                       <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
                         <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
                           {findItem?.name}

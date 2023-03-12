@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from 'pages/Comment/CommentStyle';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Ckeditor from 'components/Ckeditor/Ckeditor';
@@ -21,6 +21,7 @@ function Comment() {
   const product = products.find((a) => a.id === productId);
 
   const [loading, setLoading] = useState(false);
+  const [skeletonLoading, setSkeletonLoading] = useState(true);
 
   const [comment, setComment] = useState({
     title: '',
@@ -118,6 +119,10 @@ function Comment() {
 
   onScrollLock();
 
+  useEffect(() => {
+    products.length && setSkeletonLoading(false);
+  }, [products]);
+
   return (
     <>
       {loading && <Loading />}
@@ -128,7 +133,7 @@ function Comment() {
           <S.SubmitBtn onClick={onSubmit}>작성</S.SubmitBtn>
         </S.ModalTitleDiv>
         <S.ProductDiv>
-          <S.ProductName>{product?.name}</S.ProductName>
+          <S.ProductName>{skeletonLoading ? 'PRODUCT' : product?.name}</S.ProductName>
         </S.ProductDiv>
 
         <S.CommentTitleDiv>

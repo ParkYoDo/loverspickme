@@ -68,7 +68,7 @@ function Board() {
 
   return (
     <>
-      {inquirys.length !== 0 ? (
+      {inquirys.length ? (
         <>
           <S.BtnDiv>
             <S.RegisterQnABtn onClick={moveInquiryPage}>상품문의</S.RegisterQnABtn>

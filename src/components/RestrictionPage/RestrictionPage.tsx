@@ -3,21 +3,17 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import { useEffect } from 'react';
 
-const PublicPage = () => {
+const RestrictionPage = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    !Object.keys(user).length && navigate(`${pathname}`);
+    Object.keys(user).length ? navigate('/') : navigate(`${pathname}`);
   }, [navigate, pathname, user]);
 
-  return (
-    <>
-      <Outlet></Outlet>
-    </>
-  );
+  return <Outlet />;
 };
 
-export default PublicPage;
+export default RestrictionPage;

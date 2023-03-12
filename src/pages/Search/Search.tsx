@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from 'pages/Search/SearchStyle';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -9,22 +9,42 @@ function Search() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const [loading, setLoading] = useState(true);
+  const skeletonProducts = Array(6).fill(0);
+
   const search = searchParams.get('keyword');
 
   const findProducts =
     search === ''
       ? []
       : products.filter((product) =>
-          product.name!.toLowerCase().replace(' ', '').includes(search!.toLowerCase().replace(' ', ''))
+          product.name?.toLowerCase().replace(' ', '').includes(search?.toLowerCase().replace(' ', '')!)
         );
 
   const moveProductPage = (e: React.MouseEvent<HTMLDivElement>) => {
     navigate(`/product/${e.currentTarget.dataset.id}?tab=0`);
   };
 
+  useEffect(() => {
+    products.length && setLoading(false);
+  }, [products]);
+
   return (
     <>
-      {findProducts.length ? (
+      {loading ? (
+        <>
+          <S.ProductLabel>검색결과</S.ProductLabel>
+          <S.ProductWrapper>
+            {skeletonProducts.map((_, i) => (
+              <S.ProductDiv key={i}>
+                <S.ProductSkeletonImage />
+                <S.ProductSkeletonName />
+                <S.ProductSkeletonPrice />
+              </S.ProductDiv>
+            ))}
+          </S.ProductWrapper>
+        </>
+      ) : findProducts.length ? (
         <>
           <S.ProductLabel>검색결과</S.ProductLabel>
           <S.ProductWrapper>

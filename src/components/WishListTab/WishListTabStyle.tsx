@@ -108,3 +108,20 @@ export const ProductName = styled.div`
 export const ProductImage = styled.img`
   cursor: pointer;
 `;
+
+export const SkeletonDiv = styled.div`
+  width: 100px;
+  height: 180px;
+  border: 1px solid #d3d3d3;
+  border-radius: 12px;
+  background-color: #d3d3d3;
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: 150px;
+    height: 300px;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 200px;
+    height: 370px;
+  }
+`;

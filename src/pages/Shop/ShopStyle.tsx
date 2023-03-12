@@ -68,6 +68,21 @@ export const ProductImage = styled.img`
   cursor: pointer;
 `;
 
+export const ProductSkeletonImage = styled.div`
+  background-color: #d3d3d3;
+  border-radius: 12px;
+  height: 120px;
+  margin-bottom: 6px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    height: 170px;
+    margin-bottom: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 220px;
+    margin-bottom: 0;
+  }
+`;
+
 export const ProductName = styled.div`
   cursor: pointer;
   font-size: 10px;
@@ -76,6 +91,21 @@ export const ProductName = styled.div`
   }
   @media screen and (min-width: 1024px) {
     font-size: 14px;
+  }
+`;
+
+export const ProductSkeletonName = styled.div`
+  background-color: #d3d3d3;
+  border-radius: 12px;
+  height: 20px;
+  margin-bottom: 6px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    height: 30px;
+    margin-bottom: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 30px;
+    margin-bottom: 0;
   }
 `;
 
@@ -88,5 +118,17 @@ export const ProductPrice = styled.div`
   }
   @media screen and (min-width: 1024px) {
     font-size: 15px;
+  }
+`;
+
+export const ProductSkeletonPrice = styled.div`
+  background-color: #d3d3d3;
+  border-radius: 12px;
+  height: 14px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    height: 30px;
+  }
+  @media screen and (min-width: 1024px) {
+    height: 30px;
   }
 `;

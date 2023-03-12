@@ -11,6 +11,9 @@ function Shop() {
 
   const [totalProducts, setTotalProducts] = useState<productState[]>([]);
 
+  const [loading, setLoading] = useState(true);
+  const skeletonProducts = Array(12).fill(0);
+
   const moveProductPage = (e: React.MouseEvent<HTMLDivElement>) => {
     navigate(`/product/${e.currentTarget.dataset.id}?tab=0`);
   };
@@ -52,6 +55,7 @@ function Shop() {
         } else return 1;
       });
       setTotalProducts(newProduct);
+      setLoading(false);
     }
   }, [products]);
 
@@ -69,17 +73,24 @@ function Shop() {
         </S.SelectSorting>
       </S.selectDiv>
       <S.ProductWrapper>
-        {totalProducts.map((product) => (
-          <S.ProductDiv data-id={product.id} onClick={moveProductPage} key={product.id}>
-            <S.ProductImage src={product.image} alt="asd" data-id={product.id} />
-            <S.ProductName data-id={product.id}>{product.name}</S.ProductName>
-            <S.ProductPrice data-id={product.id}>
-              {product.price!.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
-            </S.ProductPrice>
-          </S.ProductDiv>
-        ))}
+        {loading
+          ? skeletonProducts.map((_, i) => (
+              <S.ProductDiv key={i}>
+                <S.ProductSkeletonImage />
+                <S.ProductSkeletonName />
+                <S.ProductSkeletonPrice />
+              </S.ProductDiv>
+            ))
+          : totalProducts.map((product) => (
+              <S.ProductDiv data-id={product.id} onClick={moveProductPage} key={product.id}>
+                <S.ProductImage src={product.image} alt="asd" data-id={product.id} />
+                <S.ProductName data-id={product.id}>{product.name}</S.ProductName>
+                <S.ProductPrice data-id={product.id}>
+                  {product.price!.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+                </S.ProductPrice>
+              </S.ProductDiv>
+            ))}
       </S.ProductWrapper>
-      {/* </S.ShopWrapper> */}
     </>
   );
 }

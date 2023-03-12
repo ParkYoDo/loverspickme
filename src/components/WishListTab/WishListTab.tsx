@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from 'components/WishListTab/WishListTabStyle';
 import { db } from 'service/firebase_config';
 import { doc, updateDoc, arrayRemove } from 'firebase/firestore';
@@ -15,6 +15,9 @@ function WishListTab() {
   const user = useSelector((state: RootState) => state.user);
   const products = useSelector((state: RootState) => state.products);
 
+  const [loading, setLoading] = useState(true);
+  const skeletonArray = Array(6).fill(null);
+
   const moveProductPage = (e: React.MouseEvent<HTMLElement>) => {
     navigate(`/product/${e.currentTarget.dataset.id}`);
   };
@@ -28,9 +31,19 @@ function WishListTab() {
     });
   };
 
+  useEffect(() => {
+    products.length && setLoading(false);
+  }, [products]);
+
   return (
     <>
-      {user.wish?.length ? (
+      {loading ? (
+        <S.ProductWrapper>
+          {skeletonArray.map((_, i) => (
+            <S.SkeletonDiv key={i} />
+          ))}
+        </S.ProductWrapper>
+      ) : user.wish?.length ? (
         <S.ProductWrapper>
           {user.wish.map((a) => {
             const findItem = products.find((product) => product.id === a);
@@ -40,15 +53,15 @@ function WishListTab() {
                   <SlClose data-id={a} onClick={removeWishItem} />
                 </S.RemoveBtn>
                 <S.ProductImage
-                  src={findItem!.image}
+                  src={findItem?.image}
                   alt="product_image"
-                  data-id={findItem!.id}
+                  data-id={findItem?.id}
                   onClick={moveProductPage}
                 />
-                <S.ProductName data-id={findItem!.id} onClick={moveProductPage}>
-                  {findItem!.name}
+                <S.ProductName data-id={findItem?.id} onClick={moveProductPage}>
+                  {findItem?.name}
                 </S.ProductName>
-                <S.ProductPrice data-id={findItem!.id} onClick={moveProductPage}>
+                <S.ProductPrice data-id={findItem?.id} onClick={moveProductPage}>
                   {`${findItem?.price!.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`}
                 </S.ProductPrice>
               </S.ProductDiv>

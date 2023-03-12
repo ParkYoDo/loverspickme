@@ -17,8 +17,8 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['user', 'products', 'kakaoLoginUser'],
-  whitelist: ['orderQueue'],
+  blacklist: ['products', 'kakaoLoginUser'],
+  whitelist: ['orderQueue', 'user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

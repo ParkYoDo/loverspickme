@@ -105,10 +105,24 @@ export const CartProductImage = styled.img`
   cursor: pointer;
 `;
 
+export const CartProductSkeletonImage = styled.div`
+  width: 70px;
+  height: 70px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
+`;
+
 export const CartProductName = styled.div`
   color: #5d5d5d;
   font-size: 12px;
   cursor: pointer;
+`;
+
+export const CartProductSkeletonName = styled.div`
+  width: 170px;
+  height: 18px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
 `;
 
 export const ProductOption = styled.div`

@@ -67,6 +67,13 @@ export const ProductImg = styled.img`
   cursor: pointer;
 `;
 
+export const ProductSkeletonImg = styled.div`
+  width: 70px;
+  height: 70px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
+`;
+
 export const ProductInfoDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -81,16 +88,37 @@ export const ProductName = styled.div`
   cursor: pointer;
 `;
 
+export const ProductSkeletonName = styled.div`
+  width: 180px;
+  height: 20px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
+`;
+
 export const ProductCount = styled.div`
   font-size: 12px;
   color: #a8a4a4;
   cursor: pointer;
 `;
 
+export const ProductSkeletonCount = styled.div`
+  width: 60px;
+  height: 20px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
+`;
+
 export const ProductPrice = styled.div`
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+`;
+
+export const ProductSkeletonPrice = styled.div`
+  width: 100px;
+  height: 20px;
+  background-color: #e5e5e5;
+  border-radius: 12px;
 `;
 
 export const DeliveryCostDiv = styled.div`

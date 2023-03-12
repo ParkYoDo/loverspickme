@@ -18,27 +18,23 @@ import Board from 'pages/Board/Board';
 import Contact from 'pages/Contact/Contact';
 import Order from 'pages/Order/Order';
 import OrderSuccess from 'pages/OrderSuccess/OrderSuccess';
-import PublicPage from 'components/PublicPage/PublicPage';
 import PrivatePage from 'components/PrivatePage/PrivatePage';
+import RestrictionPage from 'components/RestrictionPage/RestrictionPage';
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route element={<PublicPage />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/kakaosignup" element={<KakaoSignUp />} />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/contact" element={<Contact />} />
+
         <Route element={<PrivatePage />}>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/inquiry" element={<Inquiry />} />
@@ -46,6 +42,13 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/ordersuccess" element={<OrderSuccess />} />
         </Route>
+
+        <Route element={<RestrictionPage />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/kakaosignup" element={<KakaoSignUp />} />
+        </Route>
+
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

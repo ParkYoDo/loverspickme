@@ -18,12 +18,14 @@ function Cart() {
   const user = useSelector((state: RootState) => state.user);
   const products = useSelector((state: RootState) => state.products);
 
+  const [loading, setLoading] = useState(true);
+
   const [totalProducts, setTotalProducts] = useState<productState[]>([]);
 
   let totalPrice: number = 0;
   let totalCount: number = 0;
 
-  const [checkList, setCheckList] = useState<string[]>([]);
+  const [checkList, setCheckList] = useState<string[]>(user.cart!.map((a) => a.item));
 
   const onCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckList(e.currentTarget.checked ? user.cart!.map((a) => a.item) : []);
@@ -105,9 +107,13 @@ function Cart() {
     getProduct();
   }, [getProduct]);
 
+  useEffect(() => {
+    products.length && setLoading(false);
+  }, [products]);
+
   return (
     <>
-      {user.cart && user.cart[0] ? (
+      {user?.cart![0] ? (
         <S.LayOutWrapper>
           <S.LayoutLeftDiv>
             <S.CheckBoxWrapper>
@@ -165,15 +171,24 @@ function Cart() {
 
                   <S.CartProductWrapper>
                     <S.CartProductDiv data-id={product?.id} onClick={moveProductPage}>
-                      <S.CartProductImage
-                        src={product?.image}
-                        alt="product_image"
-                        data-id={product?.id}
-                        onClick={moveProductPage}
-                      />
-                      <S.CartProductName data-id={product?.id} onClick={moveProductPage}>
-                        {product?.name}
-                      </S.CartProductName>
+                      {loading ? (
+                        <>
+                          <S.CartProductSkeletonImage />
+                          <S.CartProductSkeletonName />
+                        </>
+                      ) : (
+                        <>
+                          <S.CartProductImage
+                            src={product?.image}
+                            alt="product_image"
+                            data-id={product?.id}
+                            onClick={moveProductPage}
+                          />
+                          <S.CartProductName data-id={product?.id} onClick={moveProductPage}>
+                            {product?.name}
+                          </S.CartProductName>
+                        </>
+                      )}
                     </S.CartProductDiv>
 
                     {product?.option![0] && (
@@ -189,7 +204,9 @@ function Cart() {
                     <S.OrderPriceTitleDiv>
                       <S.OrderPriceTitle>주문금액</S.OrderPriceTitle>
                       <S.OrderPriceTitle>
-                        {product?.option![0]
+                        {loading
+                          ? '0원'
+                          : product?.option![0]
                           ? `${(
                               (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
                                 return acc + cur.count;
@@ -205,14 +222,18 @@ function Cart() {
                     <S.OrderPriceDetailDiv>
                       <S.OrderPriceDetailLineDiv>
                         <S.OrderPriceDetailText>
-                          {product?.option![0]
+                          {loading
+                            ? '상품금액(총 0개)'
+                            : product?.option![0]
                             ? `상품금액(총 ${(cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
                                 return acc + cur.count;
                               }, 0)}개)`
                             : `상품금액(총 ${cart.count}개)`}
                         </S.OrderPriceDetailText>
                         <S.OrderPriceDetailText>
-                          {product?.option![0] ? (
+                          {loading ? (
+                            '0원'
+                          ) : product?.option![0] ? (
                             (
                               (cart.count as { item: number; count: number }[]).reduce((acc, cur) => {
                                 return acc + cur.count;
@@ -268,9 +289,9 @@ function Cart() {
           <S.CartBottomWrapper>
             <S.DetailPriceWrapper>
               <S.DetailPriceDiv>
-                <S.DetailPriceContent>상품금액(총 {totalCount}개)</S.DetailPriceContent>
+                <S.DetailPriceContent>상품금액(총 {loading ? 0 : totalCount}개)</S.DetailPriceContent>
                 <S.DetailPriceContent>
-                  {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+                  {loading ? '0' : totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
                 </S.DetailPriceContent>
               </S.DetailPriceDiv>
               <S.DetailPriceDiv>
@@ -283,7 +304,9 @@ function Cart() {
             <S.TotalPriceWrapper>
               <S.TotalPriceContent>총 주문금액</S.TotalPriceContent>
               <S.TotalPriceContent>
-                {totalPrice >= 50000
+                {loading
+                  ? '0원'
+                  : totalPrice >= 50000
                   ? `${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`
                   : totalPrice === 0
                   ? '0원'

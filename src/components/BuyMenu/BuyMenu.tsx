@@ -377,7 +377,7 @@ function BuyMenu({ product }: Props) {
           <S.BuyBtn>장바구니</S.BuyBtn>
           <S.BuyBtn>구매하기</S.BuyBtn>
           <S.HeartBtnDiv>
-            <S.HeartBtn>{user?.wish?.find((a) => a === product.id) ? <IoHeart /> : <IoHeartOutline />}</S.HeartBtn>
+            <S.HeartBtn>{user?.wish?.find((a) => a === product?.id) ? <IoHeart /> : <IoHeartOutline />}</S.HeartBtn>
           </S.HeartBtnDiv>
         </S.BuyMenuWrapper>
       )}

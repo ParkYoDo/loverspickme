@@ -11,6 +11,8 @@ interface Props {
 function DetailProductTab({ product }: Props) {
   const [notice, setNotice] = useState<noticeInterface>();
 
+  const [loading, setLoading] = useState(true);
+
   const getNotice = async () => {
     const noticeRef = collection(db, 'notice');
     const res = await getDocs(noticeRef);
@@ -22,13 +24,22 @@ function DetailProductTab({ product }: Props) {
   useEffect(() => {
     getNotice();
   }, []);
+
+  useEffect(() => {
+    notice && Object.keys(notice).length && setLoading(false);
+  }, [notice]);
+
   return (
     <S.FullWidthImageDiv>
-      {notice && notice.firstNotice.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
-
-      {product && product.detailImage!.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
-
-      {notice && notice.lastNotice.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
+      {loading ? (
+        <S.SkeletonImage />
+      ) : (
+        <>
+          {notice && notice.firstNotice.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
+          {product && product.detailImage!.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
+          {notice && notice.lastNotice.map((a, i) => <S.FullWidthImage src={a} alt="asd" key={i} />)}
+        </>
+      )}
     </S.FullWidthImageDiv>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from 'pages/OrderSuccess/OrderSuccessStyle';
 import { useSelector, useDispatch } from 'react-redux';
 import { cleanOrderQueue } from 'store/orderQueue';
@@ -13,6 +13,8 @@ function OrderSuccess() {
   const orderQueue = useSelector((state: RootState) => state.orderQueue);
   const products = useSelector((state: RootState) => state.products);
 
+  const [loading, setLoading] = useState(true);
+
   const openProductPage = (e: React.MouseEvent<HTMLElement>) => {
     navigate(`/product/${e.currentTarget.dataset.id}`);
   };
@@ -21,6 +23,10 @@ function OrderSuccess() {
     dispatch(cleanOrderQueue(null));
     navigate('/');
   };
+
+  useEffect(() => {
+    products.length && setLoading(false);
+  }, [products]);
 
   return (
     <>
@@ -41,43 +47,57 @@ function OrderSuccess() {
 
                 return (
                   <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={order.item}>
-                    <S.ProductImg
-                      src={findItem?.image}
-                      alt="product_image"
-                      data-id={findItem?.id}
-                      onClick={openProductPage}
-                    />
-                    <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
-                      <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
-                        {findItem?.name}
-                      </S.ProductName>
-                      {findItem?.option![0]
-                        ? (order.count as { item: number; count: number }[]).map((a, i) => (
-                            <S.ProductCount
-                              data-id={findItem.id}
-                              onClick={openProductPage}
-                              key={findItem.option![a.item]}
-                            >
-                              {i + 1}. {findItem.option![a.item]} - {a.count}개
-                            </S.ProductCount>
-                          ))
-                        : findItem && (
-                            <S.ProductCount data-id={findItem.id} onClick={openProductPage}>
-                              {`${order.count}개`}
-                            </S.ProductCount>
-                          )}
+                    {loading ? (
+                      <S.ProductSkeletonImg />
+                    ) : (
+                      <S.ProductImg
+                        src={findItem?.image}
+                        alt="product_image"
+                        data-id={findItem?.id}
+                        onClick={openProductPage}
+                      />
+                    )}
 
-                      <S.ProductPrice data-id={findItem?.id} onClick={openProductPage}>
-                        {(findItem?.option![0]
-                          ? (order.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                              return acc + cur.count;
-                            }, 0) * findItem.price!
-                          : findItem?.price! * (order.count as number)
-                        )
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        원
-                      </S.ProductPrice>
+                    <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
+                      {loading ? (
+                        <>
+                          <S.ProductSkeletonName />
+                          <S.ProductSkeletonCount />
+                          <S.ProductSkeletonPrice />
+                        </>
+                      ) : (
+                        <>
+                          <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
+                            {findItem?.name}
+                          </S.ProductName>
+                          {findItem?.option![0]
+                            ? (order.count as { item: number; count: number }[]).map((a, i) => (
+                                <S.ProductCount
+                                  data-id={findItem.id}
+                                  onClick={openProductPage}
+                                  key={findItem.option![a.item]}
+                                >
+                                  {i + 1}. {findItem.option![a.item]} - {a.count}개
+                                </S.ProductCount>
+                              ))
+                            : findItem && (
+                                <S.ProductCount data-id={findItem.id} onClick={openProductPage}>
+                                  {`${order.count}개`}
+                                </S.ProductCount>
+                              )}
+                          <S.ProductPrice data-id={findItem?.id} onClick={openProductPage}>
+                            {(findItem?.option![0]
+                              ? (order.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                                  return acc + cur.count;
+                                }, 0) * findItem.price!
+                              : findItem?.price! * (order.count as number)
+                            )
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            원
+                          </S.ProductPrice>
+                        </>
+                      )}
                     </S.ProductInfoDiv>
                   </S.OrderProductInfoDiv>
                 );

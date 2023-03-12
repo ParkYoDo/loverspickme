@@ -8,14 +8,10 @@ const PrivatePage = () => {
   const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    !Object.keys(user).length && navigate(`/login`);
+    !Object.keys(user).length && navigate(`/`);
   }, [navigate, user]);
 
-  return (
-    <>
-      <Outlet></Outlet>
-    </>
-  );
+  return <Outlet />;
 };
 
 export default PrivatePage;

@@ -23,6 +23,7 @@ function Order() {
   const isInCart = searchParams.get('cart');
 
   const [loading, setLoading] = useState(false);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   const [ordererInfo, setOrdererInfo] = useState({
     ordererName: '',
@@ -277,7 +278,6 @@ function Order() {
   };
 
   const [daumPost, setDaumPost] = useState(false);
-
   const toggleDaumPostcodeModal = () => {
     setDaumPost(!daumPost);
   };
@@ -412,8 +412,8 @@ function Order() {
         ordererEmail: user.email!,
       });
       setReceiverInfo({
-        receiverName: '',
-        receiverPhone: '',
+        receiverName: user.name!,
+        receiverPhone: user.phone!,
         receiverPostCode: user.postcode!,
         receiverAddress: user.address!,
         receiverDetailAddress: user.detailaddress!,
@@ -422,6 +422,10 @@ function Order() {
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    products.length && setLoadingProducts(false);
+  }, [products]);
 
   return (
     <S.OrderWrapper>
@@ -448,39 +452,54 @@ function Order() {
 
               return (
                 <S.OrderProductInfoDiv data-id={findItem?.id} onClick={openProductPage} key={i}>
-                  <S.ProductImg
-                    src={findItem?.image}
-                    alt="product_image"
-                    data-id={findItem?.id}
-                    onClick={openProductPage}
-                  />
-                  <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
-                    <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
-                      {findItem?.name}
-                    </S.ProductName>
-                    {findItem?.option![0]
-                      ? (a.count as { item: number; count: number }[]).map((a, i) => (
-                          <S.ProductCount data-id={findItem.id} onClick={openProductPage} key={a.item}>
-                            {i + 1}. {findItem.option![a.item]} - {a.count}개
-                          </S.ProductCount>
-                        ))
-                      : findItem !== undefined && (
-                          <S.ProductCount data-id={findItem.id} onClick={openProductPage}>
-                            {`${a.count}개`}
-                          </S.ProductCount>
-                        )}
+                  {loadingProducts ? (
+                    <S.ProductSkeletonImg />
+                  ) : (
+                    <S.ProductImg
+                      src={findItem?.image}
+                      alt="product_image"
+                      data-id={findItem?.id}
+                      onClick={openProductPage}
+                    />
+                  )}
 
-                    <S.ProductPrice data-id={findItem?.id} onClick={openProductPage}>
-                      {(findItem?.option![0]
-                        ? (a.count as { item: number; count: number }[]).reduce((acc, cur) => {
-                            return acc + cur.count;
-                          }, 0) * findItem?.price!
-                        : findItem?.price! * (a.count as number)
-                      )
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      원
-                    </S.ProductPrice>
+                  <S.ProductInfoDiv data-id={findItem?.id} onClick={openProductPage}>
+                    {loadingProducts ? (
+                      <>
+                        <S.ProductSkeletonName />
+                        <S.ProductSkeletonCount />
+                        <S.ProductSkeletonPrice />
+                      </>
+                    ) : (
+                      <>
+                        <S.ProductName data-id={findItem?.id} onClick={openProductPage}>
+                          {findItem?.name}
+                        </S.ProductName>
+                        {findItem?.option![0]
+                          ? (a.count as { item: number; count: number }[]).map((a, i) => (
+                              <S.ProductCount data-id={findItem.id} onClick={openProductPage} key={a.item}>
+                                {i + 1}. {findItem.option![a.item]} - {a.count}개
+                              </S.ProductCount>
+                            ))
+                          : findItem !== undefined && (
+                              <S.ProductCount data-id={findItem.id} onClick={openProductPage}>
+                                {`${a.count}개`}
+                              </S.ProductCount>
+                            )}
+
+                        <S.ProductPrice data-id={findItem?.id} onClick={openProductPage}>
+                          {(findItem?.option![0]
+                            ? (a.count as { item: number; count: number }[]).reduce((acc, cur) => {
+                                return acc + cur.count;
+                              }, 0) * findItem?.price!
+                            : findItem?.price! * (a.count as number)
+                          )
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          원
+                        </S.ProductPrice>
+                      </>
+                    )}
                   </S.ProductInfoDiv>
                 </S.OrderProductInfoDiv>
               );
@@ -489,7 +508,7 @@ function Order() {
 
           <S.DeliveryCostDiv>
             배송비
-            <S.DeliveryCost>{totalPrice >= 50000 ? '무료' : '3,000원'}</S.DeliveryCost>
+            <S.DeliveryCost>{loadingProducts ? '무료' : totalPrice >= 50000 ? '무료' : '3,000원'}</S.DeliveryCost>
           </S.DeliveryCostDiv>
         </S.OrderDiv>
 
@@ -628,18 +647,22 @@ function Order() {
               <S.DetailPriceDiv>
                 <S.DetailPriceContent>상품금액</S.DetailPriceContent>
                 <S.DetailPriceContent>
-                  {totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+                  {loadingProducts ? 0 : totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
                 </S.DetailPriceContent>
               </S.DetailPriceDiv>
               <S.DetailPriceDiv>
                 <S.DetailPriceContent>배송비</S.DetailPriceContent>
-                <S.DetailPriceContent>{totalPrice >= 50000 ? '+ 무료' : '+ 3,000원'}</S.DetailPriceContent>
+                <S.DetailPriceContent>
+                  {loadingProducts ? '+ 0원' : totalPrice >= 50000 ? '+ 무료' : '+ 3,000원'}
+                </S.DetailPriceContent>
               </S.DetailPriceDiv>
             </S.ProductPriceDiv>
             <S.DetailPriceDiv>
               <S.TotalPriceContent>총 주문금액</S.TotalPriceContent>
               <S.TotalPriceContent>
-                {totalPrice >= 50000
+                {loadingProducts
+                  ? '0원'
+                  : totalPrice >= 50000
                   ? `${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원`
                   : (totalPrice + 3000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
               </S.TotalPriceContent>

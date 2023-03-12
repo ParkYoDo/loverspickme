@@ -4,6 +4,13 @@ export const FullWidthImage = styled.img`
   width: 100%;
 `;
 
+export const SkeletonImage = styled.div`
+  width: 100%;
+  height: 1200px;
+  background-color: #d3d3d3;
+  border-radius: 12px;
+`;
+
 export const FullWidthImageDiv = styled.div`
   width: 330px;
   margin: 0 auto;

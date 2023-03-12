@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import * as S from 'pages/Inquiry/InquiryStyle';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ function Inquiry() {
   const product = products.find((a) => a.id === productId);
 
   const [loading, setLoading] = useState(false);
+  const [skeletonLoading, setSkeletonLoading] = useState(true);
 
   const [inquiry, setInquiry] = useState({
     title: '',
@@ -119,6 +120,10 @@ function Inquiry() {
 
   onScrollLock();
 
+  useEffect(() => {
+    products.length && setSkeletonLoading(false);
+  }, [products]);
+
   return (
     <>
       {loading && <Loading />}
@@ -129,7 +134,7 @@ function Inquiry() {
           <S.SubmitBtn onClick={onSubmit}>작성</S.SubmitBtn>
         </S.ModalTitleDiv>
         <S.ProductDiv>
-          <S.ProductName>{product?.name || '[기타]'}</S.ProductName>
+          <S.ProductName>{skeletonLoading ? 'PRODUCT' : product?.name || '[기타]'}</S.ProductName>
         </S.ProductDiv>
 
         <S.InquiryTitleDiv>
